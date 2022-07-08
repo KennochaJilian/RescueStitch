@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">RescueStitch</string>
+
+    <!--    Generics -->
+    <string name="default_text">Texte par défaut</string>
+    <string name="return_button"> Retour </string>
+    <string name="quit_button"> Quitter </string>
+
+    <!--Main menu page -->
+    <string name="main_menu_launch_game_button">Jouer</string>
+    <string name="main_menu_join_game_button">Rejoindre</string>
+    <string name="main_menu_parties_history_button">Historique</string>
+
+    <!-- History parties page   -->
+    <string name="title_history_parties_page">Mes parties</string>
+
+    <!--  Endgame page  -->
+    <string name="endgame_page_replay_button"> Rejouer</string>
+</resources>
