@@ -2,4 +2,5 @@
 <resources>
     <dimen name="default_margin">20dp</dimen>
     <dimen name="item_margin"> 10dp </dimen>
+    <dimen name="default_padding"> 15dp</dimen>
 </resources>
