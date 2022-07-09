@@ -1,4 +1,4 @@
-package fr.aranxa.codina.rescuestitch.partiesHistory
+package fr.aranxa.codina.rescuestitch.waitingRoom
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import fr.aranxa.codina.rescuestitch.MainActivity
 import fr.aranxa.codina.rescuestitch.R
 
-class PartiesHistoryFragment(
+class WaitingRoomFragmentFragment(
     private val context: MainActivity
 ) : Fragment() {
     companion object {
-        val TAG = "PartiesHistory"
+        val TAG = "WaitingRoom"
     }
 
     override fun onCreateView(
@@ -20,7 +20,7 @@ class PartiesHistoryFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater?.inflate(R.layout.parties_history_fragment, container, false)
+        val view = inflater?.inflate(R.layout.waiting_room_fragment, container, false)
         return view
     }
 }

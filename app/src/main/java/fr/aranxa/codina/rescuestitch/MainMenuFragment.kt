@@ -11,7 +11,7 @@ class MainMenuFragment(
 ) : Fragment() {
 
     companion object{
-        val tagName = "MainMenu"
+        val TAG = "MainMenu"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

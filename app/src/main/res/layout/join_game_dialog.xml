@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_padding"
+    >
+
+    <TextView
+        android:id="@+id/join_game_dialogue_title"
+        style="@style/DefaultTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/join_game_dialogue_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/adress_ip_input"
+        style="@style/DefaultTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:hint="@string/join_game_dialogue_ip_adress_hint"
+        android:paddingLeft="@dimen/default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/join_game_dialogue_title"
+        android:layout_marginTop="@dimen/default_margin" />
+
+    <EditText
+        android:id="@+id/port_input"
+        style="@style/DefaultTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/default_margin"
+        android:hint="@string/join_game_dialogue_port_hint"
+        android:paddingLeft="@dimen/default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adress_ip_input" />
+
+    <View
+        android:id="@+id/view_separation"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/port_input"
+        app:layout_constraintStart_toStartOf="@+id/port_input"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/join_game_dialog_close_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/view_separation"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/default_margin"
+        />
+
+    <ImageView
+        android:id="@+id/join_game_dialog_check_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view_separation"
+        android:layout_marginBottom="@dimen/default_margin"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

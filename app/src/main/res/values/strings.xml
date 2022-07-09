@@ -16,4 +16,12 @@
 
     <!--  Endgame page  -->
     <string name="endgame_page_replay_button"> Rejouer</string>
+
+    <!--    Waiting room page -->
+    <string name="waiting_room_page_ready_play_button"> Pret </string>
+
+    <!--    Join game dialog-->
+    <string name="join_game_dialogue_title"> Rejoindre une partie </string>
+    <string name="join_game_dialogue_ip_adress_hint"> Adresse IP </string>
+    <string name="join_game_dialogue_port_hint"> Port </string>
 </resources>

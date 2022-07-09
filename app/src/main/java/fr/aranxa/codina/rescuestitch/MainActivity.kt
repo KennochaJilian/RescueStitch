@@ -9,7 +9,9 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
+import fr.aranxa.codina.rescuestitch.joinGameDialog.JoinGameDialog
 import fr.aranxa.codina.rescuestitch.partiesHistory.PartiesHistoryFragment
+import fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomFragmentFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadFragment(MainMenuFragment(this), MainMenuFragment.tagName)
+        loadFragment(MainMenuFragment(this), MainMenuFragment.TAG)
         hideSystemUI()
 
     }
@@ -27,19 +29,32 @@ class MainActivity : AppCompatActivity() {
         setupMenuNavigation()
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun onResume() {
+        super.onResume()
+        hideSystemUI()
+    }
+
     private fun setupMenuNavigation() {
         findViewById<Button>(R.id.main_menu_history_button).setOnClickListener {
-            loadFragment(PartiesHistoryFragment(this), PartiesHistoryFragment.tagName)
+            loadFragment(PartiesHistoryFragment(this), PartiesHistoryFragment.TAG)
         }
         findViewById<Button>(R.id.return_button).setOnClickListener {
             quitApp()
-            supportFragmentManager.popBackStack()
+            onBackPressed()
+            setupMenuNavigation()
+        }
+        findViewById<Button>(R.id.main_menu_play_button).setOnClickListener{
+            loadFragment(WaitingRoomFragmentFragment(this), WaitingRoomFragmentFragment.TAG)
+        }
+        findViewById<Button>(R.id.main_menu_join_game_button).setOnClickListener{
+            JoinGameDialog(this).show(supportFragmentManager,JoinGameDialog.TAG)
         }
     }
 
     //    found => https://www.geeksforgeeks.org/how-to-hide-navigationbar-in-android/
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun hideSystemUI() {
+     fun hideSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(
             window,
@@ -51,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment, tag: String) {
+     fun loadFragment(fragment: Fragment, tag: String) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment, tag)
         transaction.addToBackStack(null)
@@ -59,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun quitApp(){
         val currentFragment: Fragment? =
-            supportFragmentManager.findFragmentByTag(MainMenuFragment.tagName) as Fragment?
+            supportFragmentManager.findFragmentByTag(MainMenuFragment.TAG) as Fragment?
         if (currentFragment != null && currentFragment.isVisible) {
             finish()
         }
