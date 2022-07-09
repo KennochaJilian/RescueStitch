@@ -17,13 +17,15 @@
      android:gravity="center"
      >
     <TextView
+        android:id="@+id/main_menu_username_text"
         style="@style/DefaultTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nom joueur"
+        android:text="@string/default_text"
         android:textColor="@color/white"
 
         />
+
      <ImageView
          android:id="@+id/button_edit_username"
          android:layout_width="wrap_content"

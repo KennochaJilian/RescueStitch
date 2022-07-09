@@ -3,6 +3,7 @@ package fr.aranxa.codina.rescuestitch
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -11,9 +12,12 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import fr.aranxa.codina.rescuestitch.joinGameDialog.JoinGameDialog
 import fr.aranxa.codina.rescuestitch.partiesHistory.PartiesHistoryFragment
+import fr.aranxa.codina.rescuestitch.user.UserViewModel
 import fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomFragmentFragment
 
 class MainActivity : AppCompatActivity() {
+
+    private val userViewModel: UserViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {

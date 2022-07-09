@@ -5,6 +5,7 @@
     <string name="default_text">Texte par défaut</string>
     <string name="return_button"> Retour </string>
     <string name="quit_button"> Quitter </string>
+    <string name="default_username"> Experience 626 </string>
 
     <!--Main menu page -->
     <string name="main_menu_launch_game_button">Jouer</string>
@@ -24,4 +25,8 @@
     <string name="join_game_dialogue_title"> Rejoindre une partie </string>
     <string name="join_game_dialogue_ip_adress_hint"> Adresse IP </string>
     <string name="join_game_dialogue_port_hint"> Port </string>
+
+<!--    Username dialog -->
+    <string name="username_dialog_title"> Choisir un nom de joueur</string>
+    <string name="username_input_hint"> Nom joueur</string>
 </resources>
