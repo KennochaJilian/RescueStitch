@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout android:layout_height="30dp"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="@dimen/default_margin"
+    app:justifyContent="space_between"
+    app:alignItems="center"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/waiting_player_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/DefaultTextStyle"
+        android:text="Player"
+        />
+    <TextView
+        android:id="@+id/waiting_player_item_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/DefaultTextStyle"
+        android:text="En attente"
+        />
+
+</com.google.android.flexbox.FlexboxLayout>

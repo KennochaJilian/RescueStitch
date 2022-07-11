@@ -43,7 +43,4 @@
         android:padding="@dimen/default_padding"
         />
 
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

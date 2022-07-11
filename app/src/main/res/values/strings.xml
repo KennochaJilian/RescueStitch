@@ -20,6 +20,8 @@
 
     <!--    Waiting room page -->
     <string name="waiting_room_page_ready_play_button"> Pret </string>
+    <string name="waiting_room_page_begin_game"> Demarrer la partie </string>
+    <string name="waiting_room_title_players_list">Liste des joueurs en attente </string>
 
     <!--    Join game dialog-->
     <string name="join_game_dialogue_title"> Rejoindre une partie </string>

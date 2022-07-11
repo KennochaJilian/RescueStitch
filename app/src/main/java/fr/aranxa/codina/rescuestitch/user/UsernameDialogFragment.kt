@@ -52,7 +52,11 @@ class UsernameDialogFragment(
                 .text
                 .toString()
 
-            val prefs = requireActivity().getPreferences(Context.MODE_PRIVATE)
+            val prefs = requireActivity().getSharedPreferences(
+                resources.getString(R.string.app_name),
+                Context.MODE_PRIVATE
+                )
+
             prefs.edit()
                 .putString("username", username)
                 .apply()
