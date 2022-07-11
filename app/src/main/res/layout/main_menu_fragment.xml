@@ -68,4 +68,13 @@
         android:padding="@dimen/default_padding"
         android:text="@string/main_menu_parties_history_button" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment_content"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/nav_graph"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        />
+
+
 </LinearLayout>

@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/nav_graph.xml">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/mainMenuFragment">
 
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="fr.aranxa.codina.rescuestitch.MainMenu.MainMenuFragment"
+        android:label="MainMenuFragment" >
+        <action
+            android:id="@+id/action_mainMenuFragment_to_waitingRoomFragmentFragment2"
+            app:destination="@id/waitingRoomFragmentFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/waitingRoomFragmentFragment2"
+        android:name="fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomFragmentFragment"
+        android:label="WaitingRoomFragmentFragment" >
+        <action
+            android:id="@+id/action_waitingRoomFragmentFragment2_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
 </navigation>

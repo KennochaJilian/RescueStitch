@@ -10,18 +10,28 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import fr.aranxa.codina.rescuestitch.MainMenu.MainMenuFragment
+import fr.aranxa.codina.rescuestitch.databinding.ActivityMainBinding
 import fr.aranxa.codina.rescuestitch.joinGameDialog.JoinGameDialog
 import fr.aranxa.codina.rescuestitch.partiesHistory.PartiesHistoryFragment
 import fr.aranxa.codina.rescuestitch.user.UserViewModel
+import fr.aranxa.codina.rescuestitch.network.SocketViewModel
 import fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomFragmentFragment
 
 class MainActivity : AppCompatActivity() {
 
     private val userViewModel: UserViewModel by viewModels()
+    private val socketViewModel : SocketViewModel by viewModels()
+
+    private lateinit var binding : ActivityMainBinding
+
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
         loadFragment(MainMenuFragment(this), MainMenuFragment.TAG)
         hideSystemUI()
@@ -40,20 +50,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMenuNavigation() {
-        findViewById<Button>(R.id.main_menu_history_button).setOnClickListener {
-            loadFragment(PartiesHistoryFragment(this), PartiesHistoryFragment.TAG)
-        }
-        findViewById<Button>(R.id.return_button).setOnClickListener {
-            quitApp()
-            onBackPressed()
-            setupMenuNavigation()
-        }
-        findViewById<Button>(R.id.main_menu_play_button).setOnClickListener{
-            loadFragment(WaitingRoomFragmentFragment(this), WaitingRoomFragmentFragment.TAG)
-        }
-        findViewById<Button>(R.id.main_menu_join_game_button).setOnClickListener{
-            JoinGameDialog(this).show(supportFragmentManager,JoinGameDialog.TAG)
-        }
+//        findViewById<Button>(R.id.main_menu_history_button).setOnClickListener {
+//            loadFragment(PartiesHistoryFragment(this), PartiesHistoryFragment.TAG)
+//        }
+//        findViewById<Button>(R.id.return_button).setOnClickListener {
+//            quitApp()
+//            onBackPressed()
+//            setupMenuNavigation()
+//        }
+//        findViewById<Button>(R.id.main_menu_play_button).setOnClickListener{
+//            loadFragment(WaitingRoomFragmentFragment(this), WaitingRoomFragmentFragment.TAG)
+//        }
+//        findViewById<Button>(R.id.main_menu_join_game_button).setOnClickListener{
+//            JoinGameDialog(this).show(supportFragmentManager,JoinGameDialog.TAG)
+//        }
+
     }
 
     //    found => https://www.geeksforgeeks.org/how-to-hide-navigationbar-in-android/
