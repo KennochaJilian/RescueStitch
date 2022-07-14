@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@drawable/background"
-    >
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -21,26 +20,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment_content"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="391dp"
         android:layout_height="644dp"
+        app:defaultNavHost="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:navGraph="@navigation/nav_graph" />
 
     <Button
         android:id="@+id/return_button"
+        style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rect_rounded_active_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="@dimen/default_margin"
         android:layout_marginBottom="@dimen/default_margin"
-        android:text="@string/return_button"
-        style="@style/SubtitleTextStyle"
+        android:background="@drawable/rect_rounded_active_button"
         android:padding="@dimen/default_padding"
-        />
+        android:text="@string/return_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

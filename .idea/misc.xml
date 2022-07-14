@@ -6,7 +6,10 @@
         <entry key="..\:/Perso/RescueStitch/app/src/main/res/drawable/rect_rounded_active_button.xml" value="0.137" />
         <entry key="..\:/Perso/RescueStitch/app/src/main/res/drawable/rect_rounded_button.xml" value="0.2235" />
         <entry key="..\:/Perso/RescueStitch/app/src/main/res/drawable/rect_rounded_disabled_button.xml" value="0.136" />
-        <entry key="..\:/Perso/RescueStitch/app/src/main/res/layout/activity_main.xml" value="0.36818181818181817" />
+        <entry key="..\:/Perso/RescueStitch/app/src/main/res/layout/activity_main.xml" value="0.22085889570552147" />
+        <entry key="..\:/Perso/RescueStitch/app/src/main/res/layout/dialog_join_game.xml" value="0.1" />
+        <entry key="..\:/Perso/RescueStitch/app/src/main/res/layout/dialog_username.xml" value="0.12564102564102564" />
+        <entry key="..\:/Perso/RescueStitch/app/src/main/res/layout/fragment_waiting_room.xml" value="0.15341880341880343" />
         <entry key="..\:/Perso/RescueStitch/app/src/main/res/layout/history_fragment.xml" value="0.4" />
         <entry key="..\:/Perso/RescueStitch/app/src/main/res/layout/join_game_dialog.xml" value="0.4" />
         <entry key="..\:/Perso/RescueStitch/app/src/main/res/layout/join_game_popup.xml" value="0.264" />
