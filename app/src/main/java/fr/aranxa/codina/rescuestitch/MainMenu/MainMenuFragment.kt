@@ -4,28 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import fr.aranxa.codina.rescuestitch.MainActivity
 import fr.aranxa.codina.rescuestitch.R
-import fr.aranxa.codina.rescuestitch.databinding.MainMenuFragmentBinding
+import fr.aranxa.codina.rescuestitch.databinding.FragmentMainMenuBinding
 import fr.aranxa.codina.rescuestitch.user.UserViewModel
-import fr.aranxa.codina.rescuestitch.user.UsernameDialogFragment
+import fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomOriginTypes
 
-class MainMenuFragment(
-    private val currentActivity: MainActivity
-) : Fragment() {
+class MainMenuFragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
 
-    private var _binding: MainMenuFragmentBinding? = null
-    private lateinit var binding: MainMenuFragmentBinding
+    private var _binding: FragmentMainMenuBinding? = null
+    private lateinit var binding: FragmentMainMenuBinding
 
     companion object {
         val TAG = "MainMenu"
@@ -36,38 +28,39 @@ class MainMenuFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = MainMenuFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentMainMenuBinding.inflate(inflater, container, false)
         binding = _binding!!
 
         setupUsername()
-        setupButton()
 
         return _binding?.root
-
-
-//        val navContainer = childFragmentManager.findFragmentById(R.id.nav_menu_fragment) as NavHostFragment
-//        val navController = navContainer.navController
-//
-//        view.findViewById<Button>(R.id.main_menu_play_button).setOnClickListener{
-//            navController.navigate(R.id.waitingRoomFragmentFragment2)
-//        }
-
-
-        return view
     }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupButton()
+    }
+    
     private fun setupButton() {
+
+        binding.mainMenuPlayButton.setOnClickListener{
+            val action = MainMenuFragmentDirections
+                .actionMainMenuFragmentToWaitingRoomFragment()
+                .setOrigin(WaitingRoomOriginTypes.mainMenu.toString())
+
+            findNavController().navigate(action)
+        }
+        binding.mainMenuJoinGameButton.setOnClickListener{
+            findNavController().navigate(R.id.action_mainMenuFragment_to_joinGameDialog)
+        }
+
+
         binding.buttonEditUsername.setOnClickListener {
-            UsernameDialogFragment(currentActivity).show(
-                currentActivity.supportFragmentManager,
-                UsernameDialogFragment.TAG
-            )
+            findNavController().navigate(R.id.action_mainMenuFragment_to_usernameDialogFragment)
         }
     }
 
     private fun setupUsername() {
-
         userViewModel.username.observe(viewLifecycleOwner) { username ->
             binding.mainMenuUsernameText.text = username
         }

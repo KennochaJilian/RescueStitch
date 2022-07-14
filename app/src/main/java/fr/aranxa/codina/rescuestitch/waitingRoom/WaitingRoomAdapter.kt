@@ -11,7 +11,6 @@ import fr.aranxa.codina.rescuestitch.R
 import fr.aranxa.codina.rescuestitch.dataClasses.Player
 
 class WaitingRoomAdapter(
-    val testContext : MainActivity,
     var players: List<Player>
 
 ):RecyclerView.Adapter<WaitingRoomAdapter.ViewHolder> (){

@@ -3,21 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph.xml"
     app:startDestination="@id/mainMenuFragment">
-
     <fragment
         android:id="@+id/mainMenuFragment"
         android:name="fr.aranxa.codina.rescuestitch.MainMenu.MainMenuFragment"
         android:label="MainMenuFragment" >
         <action
-            android:id="@+id/action_mainMenuFragment_to_waitingRoomFragmentFragment2"
-            app:destination="@id/waitingRoomFragmentFragment2" />
+            android:id="@+id/action_mainMenuFragment_to_waitingRoomFragment"
+            app:destination="@id/waitingRoomFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_joinGameDialog"
+            app:destination="@id/joinGameDialog" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_usernameDialogFragment"
+            app:destination="@id/usernameDialogFragment" />
     </fragment>
     <fragment
-        android:id="@+id/waitingRoomFragmentFragment2"
-        android:name="fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomFragmentFragment"
-        android:label="WaitingRoomFragmentFragment" >
+        android:id="@+id/waitingRoomFragment"
+        android:name="fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomFragment"
+        android:label="WaitingRoomFragment" >
         <action
-            android:id="@+id/action_waitingRoomFragmentFragment2_to_mainMenuFragment"
+            android:id="@+id/action_waitingRoomFragment_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment" />
+        <argument
+            android:name="origin"
+            app:argType="string"
+            android:defaultValue="default !" />
     </fragment>
+    <dialog
+        android:id="@+id/joinGameDialog"
+        android:name="fr.aranxa.codina.rescuestitch.joinGameDialog.JoinGameDialog"
+        android:label="JoinGameDialog" >
+        <action
+            android:id="@+id/action_joinGameDialog_to_waitingRoomFragment"
+            app:destination="@id/waitingRoomFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/usernameDialogFragment"
+        android:name="fr.aranxa.codina.rescuestitch.user.UsernameDialogFragment"
+        android:label="UsernameDialogFragment" />
 </navigation>

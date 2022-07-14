@@ -27,6 +27,7 @@
     <string name="join_game_dialogue_title"> Rejoindre une partie </string>
     <string name="join_game_dialogue_ip_adress_hint"> Adresse IP </string>
     <string name="join_game_dialogue_port_hint"> Port </string>
+    <string name="join_game_dialogue_no_ip_and_port_toast"> Vous ne pouvez pas joindre une partie si l\'addresse IP et le port ne sont pas définis</string>
 
 <!--    Username dialog -->
     <string name="username_dialog_title"> Choisir un nom de joueur</string>

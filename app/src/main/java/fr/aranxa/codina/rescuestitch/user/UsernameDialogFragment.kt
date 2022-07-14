@@ -12,14 +12,17 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import fr.aranxa.codina.rescuestitch.MainActivity
 import fr.aranxa.codina.rescuestitch.R
+import fr.aranxa.codina.rescuestitch.databinding.DialogUsernameBinding
+import fr.aranxa.codina.rescuestitch.utils.AppUtils
 
-class UsernameDialogFragment(
-    private val currentActivity: MainActivity
-) : DialogFragment() {
+class UsernameDialogFragment: DialogFragment() {
+
+    private var _binding: DialogUsernameBinding? = null
+    private lateinit var binding: DialogUsernameBinding
 
     private val userViewModel: UserViewModel by activityViewModels()
+
 
     companion object {
         const val TAG = "UsernameDialog"
@@ -30,27 +33,31 @@ class UsernameDialogFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.username_dialog, container, false)
-        setupButtons(view)
-        return view
+
+        _binding = DialogUsernameBinding.inflate(inflater, container, false)
+        binding = _binding!!
+
+        return _binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupButtons()
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        currentActivity.hideSystemUI()
+        AppUtils().hideSystemUI(activity?.window)
     }
 
-    private fun setupButtons(view: View) {
-        view.findViewById<ImageView>(R.id.join_game_dialog_close_button).setOnClickListener {
+    private fun setupButtons() {
+        binding.usernameDialogCloseButton.setOnClickListener {
             dismiss()
         }
 
-        view.findViewById<ImageView>(R.id.join_game_dialog_check_button).setOnClickListener {
-            val username = view
-                .findViewById<TextView>(R.id.username_input)
-                .text
-                .toString()
+        binding.usernameDialogCheckButton.setOnClickListener {
+            val username = binding.usernameInput.text.toString()
 
             val prefs = requireActivity().getSharedPreferences(
                 resources.getString(R.string.app_name),
