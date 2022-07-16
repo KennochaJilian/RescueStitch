@@ -11,6 +11,7 @@
     <string name="main_menu_launch_game_button">Jouer</string>
     <string name="main_menu_join_game_button">Rejoindre</string>
     <string name="main_menu_parties_history_button">Historique</string>
+    <string name="main_menu_join_game_no_wifi"> Vous devez être connecté au wifi pour jouer</string>
 
     <!-- History parties page   -->
     <string name="title_history_parties_page">Mes parties</string>
@@ -22,6 +23,8 @@
     <string name="waiting_room_page_ready_play_button"> Pret </string>
     <string name="waiting_room_page_begin_game"> Demarrer la partie </string>
     <string name="waiting_room_title_players_list">Liste des joueurs en attente </string>
+    <string name="waiting_room_page_pending"> En attente </string>
+    <string name="waiting_room_game_is_not_launcheable"> Vous ne pouvez pas lancer la partie si tous les joueurs ne sont pas prêts</string>
 
     <!--    Join game dialog-->
     <string name="join_game_dialogue_title"> Rejoindre une partie </string>

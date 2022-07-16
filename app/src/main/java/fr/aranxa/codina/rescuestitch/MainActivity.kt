@@ -1,13 +1,21 @@
 package fr.aranxa.codina.rescuestitch
 
+import android.content.IntentFilter
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import fr.aranxa.codina.rescuestitch.databinding.ActivityMainBinding
+import fr.aranxa.codina.rescuestitch.network.SocketViewModel
 import fr.aranxa.codina.rescuestitch.utils.AppUtils
 
+
 class MainActivity : AppCompatActivity() {
+
+    private val socketViewModel: SocketViewModel by viewModels()
+    private val gameViewModel : GameViewModel by viewModels()
 
 
     private lateinit var binding: ActivityMainBinding
@@ -19,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         AppUtils().hideSystemUI(window)
+        socketViewModel.ipAddress.observe(this) {}
+
     }
 
 

@@ -12,6 +12,9 @@ import java.net.*
 class SocketViewModel(application: Application) : AndroidViewModel(application) {
     private val serverSocket = DatagramSocket(8888)
     val ipAddress = MutableLiveData<String>(null)
+    val payload = MutableLiveData<String>(null)
+
+
 
     init {
         listenSocket()
@@ -20,10 +23,12 @@ class SocketViewModel(application: Application) : AndroidViewModel(application) 
 
     fun listenSocket() {
         viewModelScope.launch(Dispatchers.IO) {
-            val buffer = ByteArray(256)
+            val buffer = ByteArray(1000)
             var packet = DatagramPacket(buffer, buffer.size)
             serverSocket.receive(packet)
-            val data = String(packet.data, 0, packet.length)
+            payload.postValue(
+                String(packet.data, 0, packet.length)
+            )
             listenSocket()
         }
 

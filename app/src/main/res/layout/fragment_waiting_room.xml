@@ -44,6 +44,7 @@
 
 
     <Button
+        android:id="@+id/ready_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/SubtitleTextStyle"
@@ -54,6 +55,7 @@
         android:text="@string/waiting_room_page_ready_play_button" />
 
     <Button
+        android:id="@+id/launch_game_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/SubtitleTextStyle"

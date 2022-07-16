@@ -8,7 +8,7 @@ data class Game(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "game_id")
     val id : Long,
-    val status:String,
+    var status:String,
     @ColumnInfo(name = "ip_address")
     val ipAddress:String,
     val role:String,
@@ -34,6 +34,7 @@ enum class GameStatusType {
     started,
     finished,
     pending,
+    unfinished
 }
 enum class RoleType {
     server,

@@ -12,7 +12,7 @@ import fr.aranxa.codina.rescuestitch.dataClasses.Player
 
 @Database(
     entities = [Game::class, Player::class, GamesPlayers::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(RoomDateConverter::class)
 abstract class RescueStitchDatabase : RoomDatabase() {

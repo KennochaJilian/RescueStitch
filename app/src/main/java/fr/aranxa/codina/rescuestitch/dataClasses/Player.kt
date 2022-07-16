@@ -5,16 +5,13 @@ import androidx.room.*
 data class Player(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "player_id")
-    val id:Long,
+    val id:Long=0,
     @ColumnInfo(name = "name")
     val name:String,
     @ColumnInfo(name = "ip_address")
     val ipAddress:String,
     val port:Int,
-    val status:String
-)
-
-enum class PlayerStatus{
-    pending,
-    ready
+){
+    @Ignore
+    var status:Boolean = false
 }

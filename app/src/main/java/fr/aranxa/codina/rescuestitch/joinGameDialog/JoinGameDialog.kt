@@ -7,16 +7,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import fr.aranxa.codina.rescuestitch.GameViewModel
 import fr.aranxa.codina.rescuestitch.R
+import fr.aranxa.codina.rescuestitch.dataClasses.Player
+import fr.aranxa.codina.rescuestitch.dataClasses.RoleType
 import fr.aranxa.codina.rescuestitch.databinding.DialogJoinGameBinding
 import fr.aranxa.codina.rescuestitch.network.SocketViewModel
 import fr.aranxa.codina.rescuestitch.network.payloads.PayloadType
-import fr.aranxa.codina.rescuestitch.network.payloads.PlayerConnect
 import fr.aranxa.codina.rescuestitch.network.payloads.PlayerConnectPayload
 import fr.aranxa.codina.rescuestitch.user.UserViewModel
 import fr.aranxa.codina.rescuestitch.utils.AppUtils
@@ -30,6 +31,7 @@ class JoinGameDialog : DialogFragment() {
 
     private val socketViewModel: SocketViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
+    private val gameViewModel: GameViewModel by activityViewModels()
 
     companion object {
         const val TAG = "JoinGameDialog"
@@ -58,15 +60,12 @@ class JoinGameDialog : DialogFragment() {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupButtons() {
         binding.joinGameDialogCloseButton.setOnClickListener {
             dismiss()
         }
         binding.joinGameDialogCheckButton.setOnClickListener {
-            if (userViewModel.username.value != null) {
-
-            }
             goToWaitingRoom()
         }
     }
@@ -83,37 +82,53 @@ class JoinGameDialog : DialogFragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun goToWaitingRoom() {
-        val serverIp: String = binding.adressIpInput.text.toString()
+//        val serverIp: String = binding.adressIpInput.text.toString()
+        val serverIp = "192.168.1.100"
+
         val portValue: String = binding.portInput.text.toString()
+//
+//        if (serverIp == "" && portValue == "") {
+//            Toast.makeText(
+//                context,
+//                R.string.join_game_dialogue_no_ip_and_port_toast,
+//                Toast.LENGTH_LONG
+//            ).show()
+//            return
+//        }
+//
+//        val port: Int = Integer.parseInt(portValue)
 
-        if (serverIp == "" && portValue == "") {
-            Toast.makeText(
-                context,
-                R.string.join_game_dialogue_no_ip_and_port_toast,
-                Toast.LENGTH_LONG
-            ).show()
-            return
+        gameViewModel.initGame(
+            RoleType.client.toString(),
+            serverIp,
+            socketViewModel.ipAddress.value!!,
+            userViewModel.username.value!!
+        )
+
+        gameViewModel.currentGame.observe(viewLifecycleOwner) { currentGame ->
+            if (currentGame != null) {
+                val payload = PlayerConnectPayload(
+                    PayloadType.connect.toString(),
+                    Player(
+                        name = userViewModel.username.value.toString(),
+                        ipAddress = socketViewModel.ipAddress.value.toString(),
+                        port = 8888
+                    )
+                ).jsonEncodeToString()
+
+//        socketViewModel.sendUDPData(payload, serverIp, port)
+                socketViewModel.sendUDPData(payload, serverIp, 8888)
+
+                val action = JoinGameDialogDirections
+                    .actionJoinGameDialogToWaitingRoomFragment()
+                    .setOrigin(WaitingRoomOriginTypes.joinGameDialog.toString())
+
+                findNavController().navigate(action)
+                dismiss()
+            }
         }
-
-        val port: Int = Integer.parseInt(portValue)
-        val payload = PlayerConnectPayload(
-            PayloadType.connect.toString(),
-            PlayerConnect(
-                userViewModel.username.value.toString(),
-                socketViewModel.ipAddress.value.toString(),
-                "8888"
-            )
-        ).toString()
-
-        socketViewModel.sendUDPData(payload, serverIp, port)
-
-        val action = JoinGameDialogDirections
-            .actionJoinGameDialogToWaitingRoomFragment()
-            .setOrigin(WaitingRoomOriginTypes.joinGameDialog.toString())
-
-        findNavController().navigate(action)
-        dismiss()
     }
 
 
