@@ -15,6 +15,8 @@
 
     <!-- History parties page   -->
     <string name="title_history_parties_page">Mes parties</string>
+    <string name="title_number_turn">Tours réalisés :</string>
+    <string name="title_players_game">Joueurs rencontrés </string>
 
     <!--  Endgame page  -->
     <string name="endgame_page_replay_button"> Rejouer</string>

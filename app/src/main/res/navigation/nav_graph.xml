@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_usernameDialogFragment"
             app:destination="@id/usernameDialogFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_gamesHistoryFragment"
+            app:destination="@id/gamesHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/waitingRoomFragment"
@@ -41,4 +44,12 @@
         android:id="@+id/usernameDialogFragment"
         android:name="fr.aranxa.codina.rescuestitch.user.UsernameDialogFragment"
         android:label="UsernameDialogFragment" />
+    <fragment
+        android:id="@+id/gamesHistoryFragment"
+        android:name="fr.aranxa.codina.rescuestitch.gameHistory.GamesHistoryFragment"
+        android:label="GamesHistoryFragment" >
+        <action
+            android:id="@+id/action_gamesHistoryFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
 </navigation>

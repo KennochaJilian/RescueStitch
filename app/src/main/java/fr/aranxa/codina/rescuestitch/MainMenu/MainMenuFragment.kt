@@ -76,6 +76,10 @@ class MainMenuFragment : Fragment() {
             }
         }
 
+        binding.mainMenuHistoryButton.setOnClickListener{
+            findNavController().navigate(R.id.action_mainMenuFragment_to_gamesHistoryFragment)
+        }
+
         binding.buttonEditUsername.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_usernameDialogFragment)
         }

@@ -16,6 +16,10 @@ interface GameDao {
     @Transaction
     @Query("SELECT * FROM games WHERE game_id= :gameId")
     fun getGameWithPlayer(gameId:Long): GameWithPlayers
+
+    @Transaction
+    @Query("SELECT * FROM games")
+    fun getAllGamesWithPlayers(): List<GameWithPlayers>
 }
 
 @Dao

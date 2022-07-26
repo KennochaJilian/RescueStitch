@@ -30,6 +30,7 @@ data class GameWithPlayers(
     )
     val players:List<Player>
 )
+
 enum class GameStatusType {
     started,
     finished,

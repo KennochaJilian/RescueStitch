@@ -61,6 +61,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                     idPlayer
                 )
             )
+
             currentGame.postValue(gameDao.getGameWithPlayer(idNewGame))
         }
 
