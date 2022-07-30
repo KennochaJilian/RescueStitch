@@ -1,6 +1,5 @@
 package fr.aranxa.codina.rescuestitch.waitingRoom
 
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fr.aranxa.codina.rescuestitch.GameViewModel
 import fr.aranxa.codina.rescuestitch.R
@@ -66,12 +66,16 @@ class WaitingRoomFragment : Fragment() {
                 playersRecyclerView.adapter =
                     WaitingRoomAdapter(requireContext(), currentGame.players)
 
-                if (currentGame.players.find{ player -> !player.status } == null && currentGame.players.size > 1) {
+                if (currentGame.players.find { player -> !player.status } == null && currentGame.players.size > 1) {
                     gameViewModel.gameIsLauncheable.postValue(true)
-                } else{
+                } else {
                     gameViewModel.gameIsLauncheable.postValue(false)
                 }
                 updateButtons()
+
+                if (currentGame.game.status == "started") {
+                    launchGame()
+                }
             }
         }
 
@@ -103,7 +107,7 @@ class WaitingRoomFragment : Fragment() {
         }
 
         if (currentGame != null) {
-            if((currentGame.game.role) == RoleType.client.toString()){
+            if ((currentGame.game.role) == RoleType.client.toString()) {
                 binding.launchGameButton.visibility = INVISIBLE
             }
         }
@@ -113,17 +117,22 @@ class WaitingRoomFragment : Fragment() {
 
     private fun setupLauchGameButton() {
 
-        gameViewModel.gameIsLauncheable.observe(viewLifecycleOwner){ isLauncheable ->
-            if(isLauncheable){
+        gameViewModel.gameIsLauncheable.observe(viewLifecycleOwner) { isLauncheable ->
+            if (isLauncheable) {
                 binding.launchGameButton.setBackgroundResource(R.drawable.rect_rounded_active_button)
             } else {
                 binding.launchGameButton.setBackgroundResource(R.drawable.rect_rounded_disabled_button)
             }
-            binding.launchGameButton.setOnClickListener{
-                if(isLauncheable){
-                    Toast.makeText(context, "Partie lancée", Toast.LENGTH_SHORT).show()
-                } else{
-                    Toast.makeText(context, R.string.waiting_room_game_is_not_launcheable, Toast.LENGTH_SHORT).show()
+            binding.launchGameButton.setOnClickListener {
+                if (isLauncheable) {
+                    gameViewModel.launchGame()
+                    launchGame()
+                } else {
+                    Toast.makeText(
+                        context,
+                        R.string.waiting_room_game_is_not_launcheable,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -133,9 +142,10 @@ class WaitingRoomFragment : Fragment() {
     private fun setupReadyButton() {
         binding.readyButton.setOnClickListener {
             val currentGame = gameViewModel.currentGame.value
+            val ipAdress = socketViewModel.ipAddress.value
             val currentPlayer = currentGame?.players?.find { player ->
                 player.name == userViewModel.username.value &&
-                        player.ipAddress == socketViewModel.ipAddress.value
+                        player.ipAddress == ipAdress
             }
 
             if (currentPlayer != null) {
@@ -145,11 +155,11 @@ class WaitingRoomFragment : Fragment() {
 
 //                send new status to all player
 
-                    val payload = PlayerUpdateStatusPayload(
-                        data = currentPlayer
-                    ).jsonEncodeToString()
+                val payload = PlayerUpdateStatusPayload(
+                    data = currentPlayer
+                ).jsonEncodeToString()
 
-                for ( player in currentGame.players){
+                for (player in currentGame.players) {
                     socketViewModel.sendUDPData(
                         payload,
                         player.ipAddress,
@@ -199,6 +209,11 @@ class WaitingRoomFragment : Fragment() {
         socketViewModel.ipAddress.observe(viewLifecycleOwner) { ipAdress ->
             binding.textIpAdress.text = ipAdress
         }
+    }
+
+    private fun launchGame() {
+        findNavController().navigate(R.id.action_waitingRoomFragment_to_gameFragment)
+
     }
 
     private fun listenPayload() {

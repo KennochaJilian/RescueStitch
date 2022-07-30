@@ -34,7 +34,13 @@
     <string name="join_game_dialogue_port_hint"> Port </string>
     <string name="join_game_dialogue_no_ip_and_port_toast"> Vous ne pouvez pas joindre une partie si l\'addresse IP et le port ne sont pas définis</string>
 
-<!--    Username dialog -->
+    <!--    Username dialog -->
     <string name="username_dialog_title"> Choisir un nom de joueur</string>
     <string name="username_input_hint"> Nom joueur</string>
+
+    <!--    Game Activity-->
+    <string name="game_activity_turn_number_title"> Nombre de tour</string>
+    <string name="game_activity_turn_number"> 1</string>
+
+
 </resources>

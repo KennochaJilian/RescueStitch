@@ -10,3 +10,12 @@ data class GamePlayerPayload(
         return super.jsonEncodeToString(this)
     }
 }
+
+data class GameStartPayload(
+    val type: String = PayloadType.start.toString(),
+) : Payload() {
+
+    fun jsonEncodeToString(): String {
+        return super.jsonEncodeToString(this)
+    }
+}

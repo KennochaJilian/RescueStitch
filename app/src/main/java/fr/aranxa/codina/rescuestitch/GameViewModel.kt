@@ -62,11 +62,18 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                 )
             )
 
-            currentGame.postValue(gameDao.getGameWithPlayer(idNewGame))
+            getGameById(idNewGame)
         }
 
 
     }
+
+    fun getGameById(gameId:Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            currentGame.postValue(gameDao.getGameWithPlayer(gameId))
+        }
+    }
+
 
     private fun getPlayerId(playerName: String, ipAddress: String): Long {
         var idPlayer = playerDao.getByUsername(playerName)?.id
@@ -106,6 +113,17 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+    fun launchGame(){
+        if(currentGame.value != null){
+            viewModelScope.launch(Dispatchers.IO) {
+                val startedGame = currentGame.value!!.game
+                startedGame.status = GameStatusType.started.toString()
+                gameDao.updateOne(startedGame)
+                currentGame.postValue(null)
+            }
+        }
+    }
+
 
     private fun handleConnection(data: String) {
         if (currentGame.value == null) {
@@ -164,6 +182,14 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         updatePlayerStatus(decodedJSON)
     }
 
+    fun handleStartGame(){
+        val gameStarted = currentGame.value
+        gameStarted?.game?.status = GameStatusType.started.toString()
+        currentGame.postValue(
+            gameStarted
+        )
+    }
+
 
     fun handlePayload(data: String) {
         val payload = JSONObject(data)
@@ -172,6 +198,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             PayloadType.connect.toString() -> handleConnection(data)
             PayloadType.players.toString() -> handlePlayers(data)
             PayloadType.status.toString() -> handleStatus(data)
+            PayloadType.start.toString() -> handleStartGame()
             else -> {}
         }
 

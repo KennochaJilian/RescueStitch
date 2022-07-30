@@ -15,21 +15,24 @@ class SocketViewModel(application: Application) : AndroidViewModel(application) 
     val payload = MutableLiveData<String>(null)
 
 
-
     init {
+        serverSocket.reuseAddress = true
         listenSocket()
         getCurrentIP()
     }
 
     fun listenSocket() {
+        if (serverSocket.isClosed) {
+            return
+        }
         viewModelScope.launch(Dispatchers.IO) {
             val buffer = ByteArray(1000)
             var packet = DatagramPacket(buffer, buffer.size)
-            serverSocket.receive(packet)
-            payload.postValue(
-                String(packet.data, 0, packet.length)
-            )
-            listenSocket()
+                serverSocket.receive(packet)
+                payload.postValue(
+                    String(packet.data, 0, packet.length)
+                )
+                listenSocket()
         }
 
     }
@@ -47,15 +50,19 @@ class SocketViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun sendUDPData(data: String, serverIp:String, port:Int) {
+    fun sendUDPData(data: String, serverIp: String, port: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             DatagramSocket().use {
                 val dataBytes = data.toByteArray()
                 val address = InetAddress.getByName(serverIp)
                 val packet = DatagramPacket(dataBytes, dataBytes.size, address, 8888)
-                Log.d("Send", data )
                 it.send(packet)
             }
         }
+    }
+
+    fun closeSocket() {
+        serverSocket.close()
+        serverSocket.disconnect()
     }
 }

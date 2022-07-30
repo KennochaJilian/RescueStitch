@@ -31,6 +31,9 @@
             android:name="origin"
             app:argType="string"
             android:defaultValue="default !" />
+        <action
+            android:id="@+id/action_waitingRoomFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
     <dialog
         android:id="@+id/joinGameDialog"
@@ -50,6 +53,14 @@
         android:label="GamesHistoryFragment" >
         <action
             android:id="@+id/action_gamesHistoryFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="fr.aranxa.codina.rescuestitch.GameFragment"
+        android:label="GameFragment" >
+        <action
+            android:id="@+id/action_gameFragment_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment" />
     </fragment>
 </navigation>

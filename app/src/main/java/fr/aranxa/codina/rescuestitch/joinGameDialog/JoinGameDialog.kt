@@ -85,7 +85,7 @@ class JoinGameDialog : DialogFragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun goToWaitingRoom() {
 //        val serverIp: String = binding.adressIpInput.text.toString()
-        val serverIp = "192.168.1.100"
+        val serverIp = "192.168.1.36"
 
         val portValue: String = binding.portInput.text.toString()
 //

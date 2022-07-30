@@ -37,4 +37,10 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         AppUtils().hideSystemUI(window)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.viewModelStore.clear()
+    }
+
 }
