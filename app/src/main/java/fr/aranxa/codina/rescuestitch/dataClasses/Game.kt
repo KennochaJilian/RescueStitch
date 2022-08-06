@@ -12,7 +12,8 @@ data class Game(
     @ColumnInfo(name = "ip_address")
     val ipAddress:String,
     val role:String,
-    val shipIntegrity:Int=100
+    var turn:Int=1,
+    var shipIntegrity:Int=100
 )
 
 @Entity(tableName = "games_players",primaryKeys = ["game_id", "player_id"] )
@@ -22,7 +23,7 @@ data class GamesPlayers(
 )
 
 data class GameWithPlayers(
-    @Embedded val game: Game,
+    @Embedded var game: Game,
     @Relation(
         parentColumn = "game_id",
         entityColumn = "player_id",

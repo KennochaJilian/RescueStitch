@@ -1,13 +1,12 @@
 package fr.aranxa.codina.rescuestitch
 
-import android.content.IntentFilter
-import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import fr.aranxa.codina.rescuestitch.databinding.ActivityMainBinding
+import fr.aranxa.codina.rescuestitch.game.GameViewModel
 import fr.aranxa.codina.rescuestitch.network.SocketViewModel
 import fr.aranxa.codina.rescuestitch.utils.AppUtils
 

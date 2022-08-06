@@ -11,9 +11,6 @@ import fr.aranxa.codina.rescuestitch.databinding.FragmentGamesHistoryBinding
 import fr.aranxa.codina.rescuestitch.user.UserViewModel
 
 class GamesHistoryFragment() : Fragment() {
-    companion object {
-        val TAG = "GameHistory"
-    }
 
     private var _binding: FragmentGamesHistoryBinding? = null
     private lateinit var binding: FragmentGamesHistoryBinding

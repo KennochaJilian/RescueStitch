@@ -1,55 +1,62 @@
 {
     "operations": [
         {
+            "duration" : 10,
             "description": "Activer les switchs pairs et appuyer deux  fois sur les boutons rouges",
             "elements": [
                 {
                     "type": "switch",
                     "id": 0,
-                    "value-type": "int",
+                    "valueType": "int",
                     "value": 1
                 },
                 {
                     "type": "switch",
                     "id": 1,
-                    "value-type": "int",
+                    "valueType": "int",
                     "value": 2
                 },
                 {
                     "type": "switch",
                     "id": 2,
-                    "value-type": "int",
+                    "valueType": "int",
                     "value": 3
                 },
                 {
                     "type": "switch",
                     "id": 3,
-                    "value-type": "int",
+                    "valueType": "int",
                     "value": 4
                 },
                 {
                     "type": "button",
                     "id": 4,
-                    "value-type": "color",
-                    "value": "#000"
+                    "valueType": "color",
+                    "value": "#000000"
                 },
                 {
                     "type": "button",
                     "id": 5,
-                    "value-type": "color",
+                    "valueType": "color",
                     "value": "#FF0000"
                 },
                 {
                     "type": "button",
                     "id": 6,
-                    "value-type": "color",
+                    "valueType": "color",
                     "value": "#00FF00"
                 },
                 {
                     "type": "button",
                     "id": 7,
-                    "value-type": "color",
+                    "valueType": "color",
                     "value": "#FF0000"
+                },
+                {
+                    "type": "shake",
+                    "id": 8,
+                    "valueType": "N/A",
+                    "value": "N/A"
                 }
             ],
             "result": {

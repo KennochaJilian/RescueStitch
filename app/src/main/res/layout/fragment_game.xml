@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView"
@@ -16,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/ship_state_progress_bar"
+        android:id="@+id/ship_integrity_progress_bar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,23 +30,95 @@
         style="@style/DefaultTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/game_activity_turn_number_title"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
-        app:layout_constraintTop_toBottomOf="@+id/ship_state_progress_bar" />
+        android:text="@string/game_activity_turn_number_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ship_integrity_progress_bar" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_nb_turn"
+        style="@style/DefaultTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/game_activity_turn_number"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/ship_integrity_progress_bar" />
+
+    <TextView
+        android:id="@+id/text_timer"
         style="@style/DefaultTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/game_activity_turn_number"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/ship_state_progress_bar"
-        android:layout_marginStart="@dimen/item_margin"
         android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ship_integrity_progress_bar"
         />
+    <TextView
+        android:id="@+id/operation_role_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_nb_turn" />
+
+    <TextView
+        android:id="@+id/operation_description_text"
+        style="@style/DefaultTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/operation_role_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/buttons_operation_list"
+        android:layout_width="204dp"
+        android:layout_height="248dp"
+        android:layout_weight="1"
+        android:padding="20dp"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingRight="@dimen/default_padding"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/operation_role_text"
+        tools:listitem="@layout/button_operation_item">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/switches_operation_list"
+        android:layout_width="193dp"
+        android:layout_height="248dp"
+        android:layout_weight="1"
+        android:padding="20dp"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingRight="@dimen/default_padding"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttons_operation_list"
+        tools:listitem="@layout/switch_operation_item" />
+
+    <Button
+        android:id="@+id/validate_operation_button"
+        style="@style/SubtitleTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rect_rounded_active_button"
+        android:padding="@dimen/default_padding"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/game_fragment_validate_operation_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

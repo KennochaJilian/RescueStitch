@@ -26,7 +26,7 @@ class SocketViewModel(application: Application) : AndroidViewModel(application) 
             return
         }
         viewModelScope.launch(Dispatchers.IO) {
-            val buffer = ByteArray(1000)
+            val buffer = ByteArray(5000)
             var packet = DatagramPacket(buffer, buffer.size)
                 serverSocket.receive(packet)
                 payload.postValue(

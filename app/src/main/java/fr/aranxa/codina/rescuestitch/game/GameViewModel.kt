@@ -1,4 +1,4 @@
-package fr.aranxa.codina.rescuestitch
+package fr.aranxa.codina.rescuestitch.game
 
 import android.app.Application
 import android.os.Build
@@ -9,13 +9,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.google.gson.Gson
 import fr.aranxa.codina.rescuestitch.dataClasses.*
-import fr.aranxa.codina.rescuestitch.network.payloads.GamePlayerPayload
-import fr.aranxa.codina.rescuestitch.network.payloads.PayloadType
+import fr.aranxa.codina.rescuestitch.network.payloads.*
 import fr.aranxa.codina.rescuestitch.utils.RescueStitchDatabase
 import fr.aranxa.codina.rescuestitch.utils.RoomDateConverter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 import java.util.*
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
@@ -32,7 +33,17 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val currentGame = MutableLiveData<GameWithPlayers?>(null)
     val gameIsLauncheable = MutableLiveData<Boolean>(false)
 
+    val operationsTemplate = MutableLiveData<OperationsTemplate?>(null)
+    val currentOperations = MutableLiveData<List<Operation>>(null)
+    val currentOperation = MutableLiveData<Operation?>(null)
+    val currentOperationResult = MutableLiveData<Boolean?>(null)
+    val timer = MutableLiveData<Int?>(null)
+    val registeredEvents = MutableLiveData<RegisteredEvents>(RegisteredEvents())
+    val currentFinishedOperationResult =
+        MutableLiveData<MutableList<Boolean>?>(mutableListOf<Boolean>())
+
     val addPlayer = MutableLiveData<Boolean>(false)
+    val endedGame = MutableLiveData<Boolean>(false)
 
     private fun createGame(roleType: String, ipAddress: String): Long {
 
@@ -68,7 +79,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun getGameById(gameId:Long){
+    fun getGameById(gameId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             currentGame.postValue(gameDao.getGameWithPlayer(gameId))
         }
@@ -103,27 +114,81 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun closeGame() {
-        if (currentGame.value != null) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val unfinishedGame = currentGame.value!!.game
-                unfinishedGame.status = GameStatusType.unfinished.toString()
-                gameDao.updateOne(unfinishedGame)
-                currentGame.postValue(null)
-            }
+    fun endGame(game:Game){
+        viewModelScope.launch(Dispatchers.IO) {
+            game.status = GameStatusType.finished.toString()
+            gameDao.updateOne(game)
         }
     }
-    fun launchGame(){
-        if(currentGame.value != null){
+
+
+    fun launchGame() {
+        if (currentGame.value != null) {
             viewModelScope.launch(Dispatchers.IO) {
                 val startedGame = currentGame.value!!.game
                 startedGame.status = GameStatusType.started.toString()
+                var newGameWithPlayers = currentGame.value!!
+                newGameWithPlayers.game = startedGame
                 gameDao.updateOne(startedGame)
-                currentGame.postValue(null)
+                currentGame.postValue(newGameWithPlayers)
             }
         }
     }
 
+    fun updateOperations(turn: Int, nbPlayers: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            var opTemplate: OperationsTemplate?
+            if (operationsTemplate.value == null) {
+                opTemplate = getOperationsTemplate()
+                operationsTemplate.postValue(opTemplate)
+            } else {
+                opTemplate = operationsTemplate.value
+            }
+            val operationService = ManageOperationsService(nbPlayers)
+            currentOperations.postValue(
+                operationService.getOperations(
+                    turn,
+                    opTemplate
+                )
+            )
+        }
+
+
+    }
+
+
+    private fun loadJSONFromAsset(): String? {
+        var json: String? = null
+        json = try {
+            val `is`: InputStream = getApplication<Application>().assets.open("operations.json")
+            val size: Int = `is`.available()
+            val buffer = ByteArray(size)
+            `is`.read(buffer)
+            `is`.close()
+            String(buffer)
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return null
+        }
+        return json
+    }
+
+    private fun getOperationsTemplate(): OperationsTemplate {
+        return Gson().fromJson(loadJSONFromAsset(), OperationsTemplate::class.java)
+    }
+
+    fun resetLiveData(){
+        currentGame.postValue(null)
+        gameIsLauncheable.postValue(false)
+        currentOperations.postValue(emptyList())
+        currentOperation.postValue(null)
+        currentOperationResult.postValue(null)
+        timer.postValue(null)
+        registeredEvents.postValue(RegisteredEvents())
+        currentFinishedOperationResult.postValue(mutableListOf<Boolean>())
+        addPlayer.postValue(false)
+        endedGame.postValue(false)
+    }
 
     private fun handleConnection(data: String) {
         if (currentGame.value == null) {
@@ -182,7 +247,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         updatePlayerStatus(decodedJSON)
     }
 
-    fun handleStartGame(){
+    fun handleStartGame() {
         val gameStarted = currentGame.value
         gameStarted?.game?.status = GameStatusType.started.toString()
         currentGame.postValue(
@@ -190,6 +255,45 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    fun handleOperation(data: String) {
+        val gson = Gson()
+        val decodedJSON = gson.fromJson(JSONObject(data).getString("data"), Operation::class.java)
+        currentOperation.postValue(decodedJSON)
+    }
+
+    fun handleFinishOperation(data: String) {
+        val gson = Gson()
+        val decodedJSON =
+            gson.fromJson(JSONObject(data).getString("data"), GameEndOperationData::class.java)
+        val finishedOperationResult = currentFinishedOperationResult.value
+
+        if(finishedOperationResult !=null){
+            finishedOperationResult.add(decodedJSON.success)
+            currentFinishedOperationResult.postValue(finishedOperationResult)
+        }
+    }
+
+    fun handleIntegrity(data: String) {
+        val gson = Gson()
+        val decodedJSON = gson.fromJson(JSONObject(data).getString("data"), ShipIntegrityData::class.java)
+        val game = currentGame.value
+        if(game !=null){
+            game.game.shipIntegrity = decodedJSON.integrity
+            game.game.turn++
+            currentGame.postValue(game)
+        }
+    }
+
+    fun handleShipDestroyed(data:String){
+        val gson = Gson()
+        val decodedJSON = gson.fromJson(JSONObject(data).getString("data"), DestroyedShipData::class.java)
+        val game = currentGame.value
+        if(game != null){
+            game.game.turn = decodedJSON.turns
+            endGame(game.game)
+            endedGame.postValue(true)
+        }
+    }
 
     fun handlePayload(data: String) {
         val payload = JSONObject(data)
@@ -199,6 +303,10 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             PayloadType.players.toString() -> handlePlayers(data)
             PayloadType.status.toString() -> handleStatus(data)
             PayloadType.start.toString() -> handleStartGame()
+            PayloadType.operation.toString() -> handleOperation(data)
+            PayloadType.finish.toString() -> handleFinishOperation(data)
+            PayloadType.integrity.toString() -> handleIntegrity(data)
+            PayloadType.destroyed.toString() -> handleShipDestroyed(data)
             else -> {}
         }
 

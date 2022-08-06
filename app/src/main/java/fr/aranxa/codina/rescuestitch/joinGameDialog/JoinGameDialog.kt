@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import fr.aranxa.codina.rescuestitch.GameViewModel
+import fr.aranxa.codina.rescuestitch.game.GameViewModel
 import fr.aranxa.codina.rescuestitch.R
 import fr.aranxa.codina.rescuestitch.dataClasses.Player
 import fr.aranxa.codina.rescuestitch.dataClasses.RoleType

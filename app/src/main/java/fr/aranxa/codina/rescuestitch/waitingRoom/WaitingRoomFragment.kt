@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import fr.aranxa.codina.rescuestitch.GameViewModel
+import fr.aranxa.codina.rescuestitch.game.GameViewModel
 import fr.aranxa.codina.rescuestitch.R
 import fr.aranxa.codina.rescuestitch.dataClasses.RoleType
 import fr.aranxa.codina.rescuestitch.databinding.FragmentWaitingRoomBinding
@@ -125,8 +125,8 @@ class WaitingRoomFragment : Fragment() {
             }
             binding.launchGameButton.setOnClickListener {
                 if (isLauncheable) {
-                    gameViewModel.launchGame()
                     launchGame()
+                    gameViewModel.launchGame()
                 } else {
                     Toast.makeText(
                         context,
@@ -171,12 +171,6 @@ class WaitingRoomFragment : Fragment() {
 
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        gameViewModel.closeGame()
-    }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initGame(ipAdress: String) {

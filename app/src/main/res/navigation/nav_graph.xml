@@ -57,10 +57,21 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="fr.aranxa.codina.rescuestitch.GameFragment"
+        android:name="fr.aranxa.codina.rescuestitch.game.GameFragment"
         android:label="GameFragment" >
         <action
             android:id="@+id/action_gameFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_endGameFragment2"
+            app:destination="@id/endGameFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/endGameFragment2"
+        android:name="fr.aranxa.codina.rescuestitch.endGame.EndGameFragment"
+        android:label="EndGameFragment" >
+        <action
+            android:id="@+id/action_endGameFragment2_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment" />
     </fragment>
 </navigation>

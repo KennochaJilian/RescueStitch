@@ -5,4 +5,8 @@ enum class PayloadType {
     players,
     status,
     start,
+    operation,
+    finish,
+    integrity,
+    destroyed,
 }
