@@ -5,9 +5,11 @@ import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +30,8 @@ class ButtonsOperationAdapter(
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val button = view.findViewById<Button>(R.id.button_operation_item)
+        val button = view.findViewById<ImageView>(R.id.button_operation_item)
+        val textButton = view.findViewById<TextView>(R.id.button_panel_text)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,14 +45,17 @@ class ButtonsOperationAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val button = buttons[position]
         when (button.valueType) {
-            ElementValueType.color.toString() -> holder.button.setBackgroundColor(
-                Color.parseColor(
-                    button.value
+            ElementValueType.color.toString() -> {
+                holder.button.setBackgroundColor(
+                    Color.parseColor(
+                        button.value
+                    )
                 )
-            )
-            ElementValueType.string.toString() -> holder.button.text = button.value
-            ElementValueType.int.toString() -> holder.button.text = button.value
-            ElementValueType.float.toString() -> holder.button.text = button.value
+                holder.textButton.visibility = INVISIBLE
+            }
+            ElementValueType.string.toString() ->  setButtonText(holder, button.value)
+            ElementValueType.int.toString() -> setButtonText(holder, button.value)
+            ElementValueType.float.toString() -> setButtonText(holder, button.value)
         }
         holder.button.id = button.id
 
@@ -57,6 +63,15 @@ class ButtonsOperationAdapter(
     }
 
     override fun getItemCount(): Int = buttons.size
+
+    fun setButtonText(holder: ViewHolder,text:String){
+        holder.textButton.text = text
+        holder.button.setBackgroundColor(
+            Color.parseColor(
+               "#2972b6"
+            )
+        )
+    }
 
 }
 

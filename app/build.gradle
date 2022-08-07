@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation "androidx.fragment:fragment:1.5.1"
     implementation 'com.github.nisrulz:sensey:1.9.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
 
     def room_version = "2.4.2"
     implementation("androidx.room:room-runtime:$room_version")

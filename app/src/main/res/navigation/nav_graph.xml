@@ -32,8 +32,8 @@
             app:argType="string"
             android:defaultValue="default !" />
         <action
-            android:id="@+id/action_waitingRoomFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            android:id="@+id/action_waitingRoomFragment_to_videoShipFragment"
+            app:destination="@id/videoShipFragment" />
     </fragment>
     <dialog
         android:id="@+id/joinGameDialog"
@@ -63,8 +63,8 @@
             android:id="@+id/action_gameFragment_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment" />
         <action
-            android:id="@+id/action_gameFragment_to_endGameFragment2"
-            app:destination="@id/endGameFragment2" />
+            android:id="@+id/action_gameFragment_to_videoShipFragment"
+            app:destination="@id/videoShipFragment" />
     </fragment>
     <fragment
         android:id="@+id/endGameFragment2"
@@ -73,5 +73,19 @@
         <action
             android:id="@+id/action_endGameFragment2_to_mainMenuFragment"
             app:destination="@id/mainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoShipFragment"
+        android:name="fr.aranxa.codina.rescuestitch.launchShip.VideoShipFragment"
+        android:label="VideoShipFragment" >
+        <action
+            android:id="@+id/action_videoShipFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+        <argument
+            android:name="origin"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_videoShipFragment_to_endGameFragment2"
+            app:destination="@id/endGameFragment2" />
     </fragment>
 </navigation>

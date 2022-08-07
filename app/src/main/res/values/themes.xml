@@ -24,6 +24,11 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="ElementPanelTextStyle" parent="DefaultTextStyle">
+        <item name="android:textColor">@color/stitch_dark_blue</item>
+        <item name="android:textSize">8dp</item>
+    </style>
+
     <style name="SubtitleTextStyle">
         <item name="android:fontFamily">@font/bukabird</item>
         <item name="android:textColor">@color/white</item>

@@ -1,23 +1,35 @@
 package fr.aranxa.codina.rescuestitch.game
 
+import android.content.Context
+import android.content.Context.VIBRATOR_SERVICE
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.media.MediaActionSound
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.os.Vibrator
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.github.nisrulz.sensey.Sensey
 import com.github.nisrulz.sensey.ShakeDetector.ShakeListener
+import com.google.android.flexbox.*
 import fr.aranxa.codina.rescuestitch.R
 import fr.aranxa.codina.rescuestitch.dataClasses.*
 import fr.aranxa.codina.rescuestitch.databinding.FragmentGameBinding
 import fr.aranxa.codina.rescuestitch.network.SocketViewModel
 import fr.aranxa.codina.rescuestitch.network.payloads.*
+import fr.aranxa.codina.rescuestitch.waitingRoom.VideoFragmentOriginType
+import fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomFragmentDirections
 import java.util.*
 
 
@@ -25,6 +37,8 @@ class GameFragment : Fragment() {
 
     private var _binding: FragmentGameBinding? = null
     private lateinit var binding: FragmentGameBinding
+
+    private lateinit var vibrator : Vibrator
 
     private val socketViewModel: SocketViewModel by activityViewModels()
     private val gameViewModel: GameViewModel by activityViewModels()
@@ -41,29 +55,23 @@ class GameFragment : Fragment() {
 
         Sensey.getInstance().init(context);
 
+        vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
         val game = gameViewModel.currentGame.value
         if (game != null) {
             displayShipIntegrity(game.game.shipIntegrity)
             displayTurn(game.game.turn)
-            if (game.game.role == RoleType.server.toString()) {
-                for (player in game.players) {
-                    if (player.ipAddress != game.game.ipAddress) {
-                        socketViewModel.sendUDPData(
-                            GameStartPayload().jsonEncodeToString(),
-                            player.ipAddress,
-                            8888
-                        )
-                    }
-                }
-            }
+        }
 
+        if (game != null && game.game.role == RoleType.server.toString()) {
+            gameViewModel.updateOperations(game.game.turn, game.players.size)
         }
 
         gameViewModel.currentGame.observe(viewLifecycleOwner) { currentGame ->
             if (currentGame != null) {
-                clearFragment()
                 displayShipIntegrity(currentGame.game.shipIntegrity)
                 displayTurn(currentGame.game.turn)
+                displayFire(currentGame.game.shipIntegrity)
             }
 
         }
@@ -130,21 +138,16 @@ class GameFragment : Fragment() {
 
         gameViewModel.endedGame.observe(viewLifecycleOwner) { isEnded ->
             if (isEnded) {
-                findNavController().navigate(R.id.action_gameFragment_to_endGameFragment2)
+                val action = GameFragmentDirections.actionGameFragmentToVideoShipFragment(
+                    VideoFragmentOriginType.game.toString())
+                findNavController().navigate(action)
             }
         }
 
+        clearFragment()
         listenPayload()
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val game = gameViewModel.currentGame.value
-        if (game != null && game.game.role == RoleType.server.toString()) {
-            gameViewModel.updateOperations(game.game.turn, game.players.size)
-        }
     }
 
     override fun onDestroy() {
@@ -157,6 +160,7 @@ class GameFragment : Fragment() {
     }
 
     private fun displayOperation(operation: Operation) {
+        clearFragment()
         displayRole(operation.role, operation.id)
         when (operation.role) {
             OperationRoleType.operator.toString() -> {
@@ -168,24 +172,34 @@ class GameFragment : Fragment() {
                 if (operation.elements?.any { it.type == ElementType.shake.toString() } == true) {
                     manageShakeListener()
                 }
+                binding.uselessPanel.visibility = VISIBLE
+                binding.switchesOperationList.visibility = VISIBLE
+                binding.buttonsOperationList.visibility = VISIBLE
+
             }
             OperationRoleType.intructor.toString() -> {
-                manageTourDuration(operation.duration!!)
                 displayInstruction(operation.description!!)
+                manageTourDuration(operation.duration!!)
             }
         }
     }
 
     private fun displayShipIntegrity(integrity: Int) {
         binding.shipIntegrityProgressBar.progress = integrity
+        if(integrity <=30){
+//            binding.shipIntegrityProgressBar.progressDrawable = Drawable(R.drawable.rect_rounded_active_button)
+        }
     }
 
     private fun displayRole(role: String, operatorId: String?) {
+        binding.operationRoleText.visibility = VISIBLE
+        Log.d("ROLE", role)
         when (role) {
             OperationRoleType.spectactor.toString() -> {
                 binding.operationRoleText.text = getString(R.string.game_fragment_spectator_role)
             }
             OperationRoleType.intructor.toString() -> {
+                Log.d("ROLE", "Ok j'affiche le role instructeur")
                 binding.operationRoleText.text =
                     getString(R.string.game_fragment_instructor_role, operatorId)
             }
@@ -195,7 +209,15 @@ class GameFragment : Fragment() {
     }
 
     private fun displayButtons(buttonsList: List<Element>) {
+        binding.buttonsOperationList.visibility = VISIBLE
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        layoutManager.justifyContent = JustifyContent.SPACE_AROUND
+
         val buttonsRecyclerView = binding.buttonsOperationList
+        buttonsRecyclerView.layoutManager = layoutManager
         buttonsRecyclerView.adapter = ButtonsOperationAdapter(
             requireContext(),
             buttonsList,
@@ -205,12 +227,15 @@ class GameFragment : Fragment() {
                 gameViewModel.registeredEvents.postValue(
                     registeredEvents
                 )
+                vibrator.vibrate(50)
+
             }
         )
-        binding.buttonsOperationList.visibility = VISIBLE
+
     }
 
     private fun displaySwitches(switchesList: List<Element>) {
+        binding.switchesOperationList.visibility = VISIBLE
         val switchesRecyclerView = binding.switchesOperationList
         switchesRecyclerView.adapter = SwitchesOperationAdapter(
             requireContext(),
@@ -221,13 +246,15 @@ class GameFragment : Fragment() {
                 gameViewModel.registeredEvents.postValue(
                     registeredEvents
                 )
+                vibrator.vibrate(50)
             }
         )
-        binding.switchesOperationList.visibility = VISIBLE
+
     }
 
     private fun displayInstruction(description: String) {
         binding.operationDescriptionText.visibility = VISIBLE
+        binding.boardPanelBackground.visibility = VISIBLE
         binding.operationDescriptionText.text = description
     }
 
@@ -265,6 +292,7 @@ class GameFragment : Fragment() {
     }
 
     private fun manageShakeListener() {
+        var mediaPlayer = MediaPlayer.create(context, R.raw.shake_sound)
         val shakeListener: ShakeListener = object : ShakeListener {
             override fun onShakeDetected() {
                 val registeredEvents = gameViewModel.registeredEvents.value
@@ -272,10 +300,12 @@ class GameFragment : Fragment() {
                 gameViewModel.registeredEvents.postValue(
                     registeredEvents
                 )
+                vibrator.vibrate(50)
+                mediaPlayer.start()
             }
 
             override fun onShakeStopped() {
-                return
+                Sensey.getInstance().stop()
             }
         }
         Sensey.getInstance().startShakeDetection(shakeListener)
@@ -312,6 +342,7 @@ class GameFragment : Fragment() {
     }
 
     fun manageResults(results: MutableList<Boolean>) {
+        var mediaPlayer = MediaPlayer.create(context, R.raw.ship_damage)
         val currentGame = gameViewModel.currentGame.value
         if (currentGame != null) {
             val nbPlayers = currentGame.players.size
@@ -319,10 +350,17 @@ class GameFragment : Fragment() {
             if (results.size == nbPlayers / 2 || results.size == (nbPlayers - 1) / 2) {
                 val nbFailure = results.count { it == false }
                 currentGame.game.shipIntegrity = currentGame.game.shipIntegrity - (nbFailure * 40)
+                displayFire(currentGame.game.shipIntegrity)
+
 
                 if (currentGame.game.shipIntegrity <= 0) {
-                    findNavController().navigate(R.id.action_gameFragment_to_endGameFragment2)
+                    val action = GameFragmentDirections.actionGameFragmentToVideoShipFragment(
+                        VideoFragmentOriginType.game.toString())
+                    findNavController().navigate(action)
                 }
+
+                mediaPlayer.start()
+
                 for (player in currentGame.players) {
                     if (player.ipAddress != socketViewModel.ipAddress.value) {
                         socketViewModel.sendUDPData(
@@ -348,12 +386,22 @@ class GameFragment : Fragment() {
 
         }
     }
+    fun displayFire(shipIntegrity: Int){
+        when{
+            shipIntegrity <= 20 -> binding.damage4.visibility = VISIBLE
+            shipIntegrity <= 40 -> binding.damage3.visibility = VISIBLE
+            shipIntegrity <= 60 -> binding.damage2.visibility = VISIBLE
+            shipIntegrity <= 80 -> binding.damage1.visibility = VISIBLE
+        }
+    }
 
     fun clearFragment() {
         binding.validateOperationButton.visibility = INVISIBLE
         binding.operationDescriptionText.visibility = INVISIBLE
         binding.buttonsOperationList.visibility = INVISIBLE
         binding.switchesOperationList.visibility = INVISIBLE
+        binding.uselessPanel.visibility = INVISIBLE
+        binding.boardPanelBackground.visibility = INVISIBLE
     }
 
     fun cleanCurrentTurnLiveDatas() {

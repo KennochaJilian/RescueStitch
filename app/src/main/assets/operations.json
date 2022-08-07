@@ -31,8 +31,8 @@
                 {
                     "type": "button",
                     "id": 4,
-                    "valueType": "color",
-                    "value": "#000000"
+                    "valueType": "string",
+                    "value": "Propulseurs"
                 },
                 {
                     "type": "button",

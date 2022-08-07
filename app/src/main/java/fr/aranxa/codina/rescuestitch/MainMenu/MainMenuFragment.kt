@@ -83,6 +83,7 @@ class MainMenuFragment : Fragment() {
         binding.buttonEditUsername.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_usernameDialogFragment)
         }
+
     }
 
     private fun setupUsername() {

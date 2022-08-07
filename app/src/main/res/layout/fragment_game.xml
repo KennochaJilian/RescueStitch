@@ -3,7 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/game_background"
+    >
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="444dp"
+        android:background="@color/stitch_dark_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/operation_role_text" />
+
+    <View
+        android:id="@+id/board_panel_background"
+        android:layout_width="308dp"
+        android:layout_height="238dp"
+        android:background="@drawable/board_computer"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/operation_role_text" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/fireeee"
+        android:layout_width="169dp"
+        android:layout_height="139dp"
+        android:src="@drawable/fireeeeee"
+        app:layout_constraintBottom_toTopOf="@+id/ship_integrity_progress_bar"
+        app:layout_constraintEnd_toStartOf="@+id/damage_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.205" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -13,6 +44,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="1dp"
+        android:layout_height="153dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/damage_1"
+        android:visibility="invisible"
+        android:layout_width="82dp"
+        android:layout_height="93dp"
+        android:background="@drawable/fire"
+        android:src="@drawable/fire"
+        app:layout_constraintBottom_toTopOf="@+id/ship_integrity_progress_bar"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/view2" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/damage_2"
+        android:layout_width="92dp"
+        android:layout_height="100dp"
+        android:background="@drawable/fire"
+        android:src="@drawable/fire"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/view2" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/damage_3"
+        android:layout_width="84dp"
+        android:layout_height="83dp"
+        android:background="@drawable/fire"
+        android:src="@drawable/fire"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/damage_4"
+        android:layout_width="105dp"
+        android:layout_height="118dp"
+        android:background="@drawable/fire"
+        android:src="@drawable/fire"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ProgressBar
         android:id="@+id/ship_integrity_progress_bar"
@@ -63,6 +144,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
+        style="@style/DefaultTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_nb_turn" />
@@ -70,23 +152,35 @@
     <TextView
         android:id="@+id/operation_description_text"
         style="@style/DefaultTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
+        android:layout_width="280dp"
+        android:layout_height="200dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/board_panel_background"
+        app:layout_constraintEnd_toEndOf="@+id/board_panel_background"
+        app:layout_constraintStart_toStartOf="@+id/board_panel_background"
+        app:layout_constraintTop_toTopOf="@+id/board_panel_background" />
+
+    <ImageView
+        android:id="@+id/useless_panel"
+        android:layout_width="154dp"
+        android:layout_height="229dp"
+        android:src="@drawable/useless_panel"
+        app:layout_constraintBottom_toBottomOf="@+id/switches_operation_list"
+        app:layout_constraintEnd_toStartOf="@+id/switches_operation_list"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/operation_role_text" />
+        app:layout_constraintTop_toBottomOf="@+id/buttons_operation_list" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/buttons_operation_list"
-        android:layout_width="204dp"
-        android:layout_height="248dp"
+        android:layout_width="287dp"
+        android:layout_height="195dp"
         android:layout_weight="1"
+        android:background="@drawable/button_panel"
         android:padding="20dp"
         android:paddingLeft="@dimen/default_padding"
         android:paddingRight="@dimen/default_padding"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/operation_role_text"
         tools:listitem="@layout/button_operation_item">
@@ -94,6 +188,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@drawable/switches_panel"
         android:id="@+id/switches_operation_list"
         android:layout_width="193dp"
         android:layout_height="248dp"
@@ -103,8 +198,10 @@
         android:paddingRight="@dimen/default_padding"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttons_operation_list"
-        tools:listitem="@layout/switch_operation_item" />
+        app:layout_constraintTop_toBottomOf="@+id/buttons_operation_list"
+        tools:listitem="@layout/switch_operation_item"
+        android:layout_marginRight="@dimen/default_margin"
+        />
 
     <Button
         android:id="@+id/validate_operation_button"

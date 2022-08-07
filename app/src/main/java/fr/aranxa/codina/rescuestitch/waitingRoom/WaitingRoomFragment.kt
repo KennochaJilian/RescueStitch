@@ -12,6 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
+import fr.aranxa.codina.rescuestitch.MainMenu.MainMenuFragmentDirections
 import fr.aranxa.codina.rescuestitch.game.GameViewModel
 import fr.aranxa.codina.rescuestitch.R
 import fr.aranxa.codina.rescuestitch.dataClasses.RoleType
@@ -59,7 +64,13 @@ class WaitingRoomFragment : Fragment() {
         }
 
 //        update Player in Recycler view
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        layoutManager.justifyContent = JustifyContent.SPACE_AROUND
+
         val playersRecyclerView = binding.playersWaitingList
+        playersRecyclerView.layoutManager = layoutManager
 
         gameViewModel.currentGame.observe(viewLifecycleOwner) { currentGame ->
             if (currentGame != null) {
@@ -206,8 +217,8 @@ class WaitingRoomFragment : Fragment() {
     }
 
     private fun launchGame() {
-        findNavController().navigate(R.id.action_waitingRoomFragment_to_gameFragment)
-
+        val action = WaitingRoomFragmentDirections.actionWaitingRoomFragmentToVideoShipFragment(VideoFragmentOriginType.waitingRoom.toString())
+        findNavController().navigate(action)
     }
 
     private fun listenPayload() {

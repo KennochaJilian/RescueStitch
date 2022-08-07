@@ -4,3 +4,8 @@ enum class WaitingRoomOriginTypes {
     mainMenu,
     joinGameDialog
 }
+
+enum class VideoFragmentOriginType{
+    waitingRoom,
+    game,
+}
