@@ -19,6 +19,7 @@ import com.google.android.flexbox.JustifyContent
 import fr.aranxa.codina.rescuestitch.MainMenu.MainMenuFragmentDirections
 import fr.aranxa.codina.rescuestitch.game.GameViewModel
 import fr.aranxa.codina.rescuestitch.R
+import fr.aranxa.codina.rescuestitch.dataClasses.GameStatusType
 import fr.aranxa.codina.rescuestitch.dataClasses.RoleType
 import fr.aranxa.codina.rescuestitch.databinding.FragmentWaitingRoomBinding
 import fr.aranxa.codina.rescuestitch.network.SocketViewModel
@@ -53,6 +54,7 @@ class WaitingRoomFragment : Fragment() {
         setupIPAdress()
         setupReadyButton()
         setupLauchGameButton()
+        setupBackButton()
 
 //        init game
         socketViewModel.ipAddress.observe(viewLifecycleOwner) { ipAdress ->
@@ -101,6 +103,18 @@ class WaitingRoomFragment : Fragment() {
 //      get request from SocketViewModel
         listenPayload()
         return binding.root
+    }
+
+    private fun setupBackButton() {
+        binding.back.setOnClickListener {
+            val game = gameViewModel.currentGame.value
+            if(game != null){
+                gameViewModel.endGame(game.game, GameStatusType.unfinished.toString())
+            }
+            gameViewModel.resetLiveData()
+            findNavController().navigate(R.id.action_waitingRoomFragment_to_mainMenuFragment)
+
+        }
     }
 
     private fun updateButtons() {

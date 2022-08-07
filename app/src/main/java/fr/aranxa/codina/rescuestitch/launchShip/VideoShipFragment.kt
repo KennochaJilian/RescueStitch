@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fr.aranxa.codina.rescuestitch.R
+import fr.aranxa.codina.rescuestitch.dataClasses.GameStatusType
 import fr.aranxa.codina.rescuestitch.dataClasses.GameWithPlayers
 import fr.aranxa.codina.rescuestitch.dataClasses.RoleType
 import fr.aranxa.codina.rescuestitch.databinding.FragmentVideoShipBinding
@@ -103,7 +104,7 @@ class VideoShipFragment() : Fragment() {
     private fun endGame(game: GameWithPlayers) {
 
         if (game.game.role == RoleType.server.toString()) {
-            gameViewModel.endGame(game.game)
+            gameViewModel.endGame(game.game, GameStatusType.finished.toString())
             for (player in game.players) {
                 if (player.ipAddress != socketViewModel.ipAddress.value) {
                     socketViewModel.sendUDPData(

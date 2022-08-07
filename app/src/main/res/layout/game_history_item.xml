@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/default_margin"
     >
 
@@ -19,25 +20,26 @@
 
     <TextView
         android:id="@+id/title_players_game"
+        style="@style/MinTextStyle"
+        android:layout_marginTop="@dimen/item_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
         android:text="@string/title_players_game"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="@dimen/default_padding"
-        style="@style/MinTextStyle"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/game_date" />
 
     <TextView
         android:id="@+id/players_game"
+        style="@style/MinTextStyle"
+        android:layout_marginTop="@dimen/item_margin"
+        android:layout_marginStart="@dimen/default_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
         android:text="@string/title_players_game"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title_players_game"
-        android:layout_marginLeft="@dimen/item_margin"
-        style="@style/MinTextStyle"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_players_game" />
 
     <TextView
         android:id="@+id/title_game_turn_number"
@@ -56,7 +58,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/MinTextStyle"
-        android:layout_marginRight="@dimen/default_padding"/>
+        android:layout_marginEnd="@dimen/default_padding"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/players_game" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import fr.aranxa.codina.rescuestitch.R
 import fr.aranxa.codina.rescuestitch.databinding.FragmentMainMenuBinding
+import fr.aranxa.codina.rescuestitch.network.SocketViewModel
 import fr.aranxa.codina.rescuestitch.user.UserViewModel
 import fr.aranxa.codina.rescuestitch.utils.AppUtils
 import fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomOriginTypes
@@ -19,9 +20,11 @@ import fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomOriginTypes
 class MainMenuFragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
+    private val socketViewModel: SocketViewModel by activityViewModels()
 
     private var _binding: FragmentMainMenuBinding? = null
     private lateinit var binding: FragmentMainMenuBinding
+
 
     companion object {
         val TAG = "MainMenu"
@@ -50,7 +53,7 @@ class MainMenuFragment : Fragment() {
     private fun setupButton() {
 
         binding.mainMenuPlayButton.setOnClickListener {
-            if (AppUtils().ifWifiConnected(requireContext())) {
+            if (AppUtils().ifWifiConnected(requireContext(), socketViewModel.ipAddress.value!!)) {
                 val action = MainMenuFragmentDirections
                     .actionMainMenuFragmentToWaitingRoomFragment()
                     .setOrigin(WaitingRoomOriginTypes.mainMenu.toString())
@@ -65,7 +68,7 @@ class MainMenuFragment : Fragment() {
 
         }
         binding.mainMenuJoinGameButton.setOnClickListener {
-            if (AppUtils().ifWifiConnected(requireContext())) {
+            if (AppUtils().ifWifiConnected(requireContext(), socketViewModel.ipAddress.value!!)) {
                 findNavController().navigate(R.id.action_mainMenuFragment_to_joinGameDialog)
             } else {
                 Toast.makeText(

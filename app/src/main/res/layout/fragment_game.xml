@@ -122,7 +122,7 @@
         style="@style/DefaultTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/item_margin"
+        android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
         android:text="@string/game_activity_turn_number"
         app:layout_constraintStart_toEndOf="@+id/textView2"
@@ -139,12 +139,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ship_integrity_progress_bar"
         />
+
     <TextView
         android:id="@+id/operation_role_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin"
+        android:paddingLeft="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
         style="@style/DefaultTextStyle"
+        android:layout_marginTop="@dimen/default_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_nb_turn" />
@@ -155,6 +160,8 @@
         android:layout_width="280dp"
         android:layout_height="200dp"
         android:visibility="invisible"
+        android:paddingRight="@dimen/item_margin"
+        android:paddingLeft="@dimen/item_margin"
         app:layout_constraintBottom_toBottomOf="@+id/board_panel_background"
         app:layout_constraintEnd_toEndOf="@+id/board_panel_background"
         app:layout_constraintStart_toStartOf="@+id/board_panel_background"
@@ -216,6 +223,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rect_rounded_active_button"
+        android:padding="@dimen/item_margin"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/item_margin"
+        android:layout_marginBottom="@dimen/item_margin"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

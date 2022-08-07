@@ -9,7 +9,7 @@ data class Player(
     @ColumnInfo(name = "name")
     val name:String,
     @ColumnInfo(name = "ip_address")
-    val ipAddress:String,
+    var ipAddress:String,
     val port:Int,
 ){
     @Ignore

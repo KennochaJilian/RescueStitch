@@ -33,7 +33,7 @@ class GamesHistoryFragment() : Fragment() {
         val gamesRecyclerView = binding.gamesList
         gamesHistoryViewModel.games.observe(viewLifecycleOwner) { games ->
             if (games != null) {
-                gamesRecyclerView.adapter = GameHistoryAdapter(requireContext(), games)
+                gamesRecyclerView.adapter = GameHistoryAdapter(requireContext(), games.sortedByDescending { it.game.date })
             }
 
         }

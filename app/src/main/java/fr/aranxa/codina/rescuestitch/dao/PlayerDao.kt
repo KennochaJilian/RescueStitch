@@ -1,11 +1,14 @@
 package fr.aranxa.codina.rescuestitch.dao
 import androidx.room.*
+import fr.aranxa.codina.rescuestitch.dataClasses.Game
 import fr.aranxa.codina.rescuestitch.dataClasses.Player
 
 @Dao
 interface PlayerDao {
     @Insert
     fun insertOne(player: Player): Long
+    @Update
+    fun updateOne(player: Player) : Int
 
     @Query("SELECT COUNT(*) FROM players WHERE name = :name")
     fun doesUserExist(name: String): Int

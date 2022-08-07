@@ -19,7 +19,7 @@
 
     <EditText
         android:id="@+id/adress_ip_input"
-        style="@style/DefaultTextStyle"
+        style="@style/DarkDefaultTextStyle"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:hint="@string/join_game_dialogue_ip_adress_hint"
@@ -29,26 +29,14 @@
         app:layout_constraintTop_toBottomOf="@+id/join_game_dialogue_title"
         android:layout_marginTop="@dimen/default_margin" />
 
-    <EditText
-        android:id="@+id/port_input"
-        style="@style/DefaultTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:inputType="number"
-        android:layout_marginTop="@dimen/default_margin"
-        android:hint="@string/join_game_dialogue_port_hint"
-        android:paddingLeft="@dimen/default_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adress_ip_input" />
 
     <View
         android:id="@+id/view_separation"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/port_input"
-        app:layout_constraintStart_toStartOf="@+id/port_input"
+        app:layout_constraintEnd_toEndOf="@+id/adress_ip_input"
+        app:layout_constraintStart_toStartOf="@+id/adress_ip_input"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView

@@ -1,14 +1,21 @@
 package fr.aranxa.codina.rescuestitch.gameHistory
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import fr.aranxa.codina.rescuestitch.R
 import fr.aranxa.codina.rescuestitch.dataClasses.GameWithPlayers
 import fr.aranxa.codina.rescuestitch.utils.RoomDateConverter
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.util.*
 
 class GameHistoryAdapter(
     val context: Context,
@@ -29,13 +36,19 @@ class GameHistoryAdapter(
         return ViewHolder(view)
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentGame = games[position]
         val listNamePlayer:List<String> = currentGame.players.map{ it.name}
 
-        holder.gameDate.text = RoomDateConverter().fromTimestamp(currentGame.game.date).toString()
-        holder.nbTurn.text = "0"
-        holder.playersText.text = listNamePlayer.toString()
+        val date: Date? = RoomDateConverter().fromTimestamp(currentGame.game.date)
+
+        if(date != null){
+            val dateFormated = SimpleDateFormat("dd/MM/yyyy").format(date)
+            holder.gameDate.text = dateFormated
+        }
+        holder.nbTurn.text = currentGame.game.turn.toString()
+        holder.playersText.text = listNamePlayer.joinToString("-")
     }
 
     override fun getItemCount(): Int = games.size

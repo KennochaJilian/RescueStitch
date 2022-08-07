@@ -20,11 +20,11 @@
 
     <EditText
         android:id="@+id/username_input"
-        style="@style/DefaultTextStyle"
+        style="@style/DarkDefaultTextStyle"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:hint="@string/username_input_hint"
-        android:paddingLeft="@dimen/default_margin"
+        android:paddingStart="@dimen/default_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_dialog_title"

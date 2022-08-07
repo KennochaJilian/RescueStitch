@@ -7,8 +7,8 @@
                 {
                     "type": "switch",
                     "id": 0,
-                    "valueType": "int",
-                    "value": 1
+                    "valueType": "color",
+                    "value": "#FF0000"
                 },
                 {
                     "type": "switch",

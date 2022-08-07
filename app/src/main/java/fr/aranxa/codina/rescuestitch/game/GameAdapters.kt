@@ -8,7 +8,6 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
@@ -53,7 +52,7 @@ class ButtonsOperationAdapter(
                 )
                 holder.textButton.visibility = INVISIBLE
             }
-            ElementValueType.string.toString() ->  setButtonText(holder, button.value)
+            ElementValueType.string.toString() -> setButtonText(holder, button.value)
             ElementValueType.int.toString() -> setButtonText(holder, button.value)
             ElementValueType.float.toString() -> setButtonText(holder, button.value)
         }
@@ -64,11 +63,11 @@ class ButtonsOperationAdapter(
 
     override fun getItemCount(): Int = buttons.size
 
-    fun setButtonText(holder: ViewHolder,text:String){
+    fun setButtonText(holder: ViewHolder, text: String) {
         holder.textButton.text = text
         holder.button.setBackgroundColor(
             Color.parseColor(
-               "#2972b6"
+                "#2972b6"
             )
         )
     }
@@ -120,5 +119,6 @@ class SwitchesOperationAdapter(
             }
         }
     }
+
     override fun getItemCount(): Int = switches.size
 }

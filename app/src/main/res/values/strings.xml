@@ -15,8 +15,8 @@
 
     <!-- History parties page   -->
     <string name="title_history_parties_page">Mes parties</string>
-    <string name="title_number_turn">Tours réalisés :</string>
-    <string name="title_players_game">Joueurs rencontrés </string>
+    <string name="title_number_turn">Tours réalises :</string>
+    <string name="title_players_game">Joueurs rencontres </string>
 
     <!--  Endgame page  -->
     <string name="endgame_page_replay_button"> Rejouer</string>
@@ -42,13 +42,13 @@
     <string name="game_activity_turn_number_title"> Nombre de tour</string>
     <string name="game_activity_turn_number"> 1</string>
     <string name="game_fragment_spectator_role"> Stich n\'a pas besoin de toi pour l\'instant</string>
-    <string name="game_fragment_instructor_role"> Pour aider Stitch, trouve l\'opérateur : %1$s </string>
+    <string name="game_fragment_instructor_role"> Pour aider Stitch, trouve l\'operateur : %1$s </string>
     <string name="game_fragment_switch_default_text"> Pompe </string>
     <string name="game_fragment_validate_operation_button"> Valider </string>
 
 <!--    End Game Fragment -->
-    <string name="end_game_title"> Oh non ! Le vaisseau de Stitch a explosé ! </string>
-    <string name="end_game_nb_turn_realised"> Votre vaisseau a resisté à %1$s d\'opération </string>
+    <string name="end_game_title"> Oh non ! Le vaisseau de Stitch a explose ! </string>
+    <string name="end_game_nb_turn_realised"> Votre vaisseau a resiste a %1$s operations </string>
     <string name="return_to_main_menu_text"> Retour au menu principal</string>
 
 

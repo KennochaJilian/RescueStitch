@@ -19,6 +19,9 @@
         style="@style/DefaultTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin"
         android:text="@string/end_game_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,12 +32,13 @@
         style="@style/DefaultTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:paddingLeft="@dimen/default_margin"
+        android:paddingRight="@dimen/default_margin"
         android:text="@string/end_game_nb_turn_realised"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_end_game"
-        android:layout_marginTop="@dimen/default_margin"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/title_end_game" />
 
     <Button
         android:id="@+id/replay_button"

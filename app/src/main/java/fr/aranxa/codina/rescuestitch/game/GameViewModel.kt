@@ -87,9 +87,21 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private fun getPlayerId(playerName: String, ipAddress: String): Long {
-        var idPlayer = playerDao.getByUsername(playerName)?.id
-        if (idPlayer == null) {
-            idPlayer = playerDao.insertOne(
+        val player = playerDao.getByUsername(playerName)
+        var id: Long = 0
+
+        if(player != null){
+            id = player.id
+
+            if (player.ipAddress != ipAddress) {
+                player.ipAddress = ipAddress
+                playerDao.updateOne(player).toLong()
+            }
+        }
+
+
+        if (player == null) {
+            id = playerDao.insertOne(
                 Player(
                     id = 0,
                     name = playerName,
@@ -98,7 +110,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
                 )
             )
         }
-        return idPlayer
+        return id
 
     }
 
@@ -114,9 +126,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun endGame(game:Game){
+    fun endGame(game:Game, status:String){
         viewModelScope.launch(Dispatchers.IO) {
-            game.status = GameStatusType.finished.toString()
+            game.status = status
             gameDao.updateOne(game)
         }
     }
@@ -200,6 +212,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             val gson = Gson()
             val decodedJSON =
                 gson.fromJson(JSONObject(data).getString("data"), Player::class.java)
+
+            if(currentGame.value!!.players.any{it.name == decodedJSON.name}){
+                addPlayer.postValue(true)
+                return@launch
+            }
+
             val playerId = getPlayerId(decodedJSON.name, decodedJSON.ipAddress)
 
             gamesPlayersDao.insertOne(
@@ -290,7 +308,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         val game = currentGame.value
         if(game != null){
             game.game.turn = decodedJSON.turns
-            endGame(game.game)
+            endGame(game.game, GameStatusType.finished.toString())
             endedGame.postValue(true)
         }
     }

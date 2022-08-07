@@ -33,9 +33,6 @@ class JoinGameDialog : DialogFragment() {
     private val userViewModel: UserViewModel by activityViewModels()
     private val gameViewModel: GameViewModel by activityViewModels()
 
-    companion object {
-        const val TAG = "JoinGameDialog"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,9 +84,8 @@ class JoinGameDialog : DialogFragment() {
 //        val serverIp: String = binding.adressIpInput.text.toString()
         val serverIp = "192.168.1.36"
 
-        val portValue: String = binding.portInput.text.toString()
 //
-//        if (serverIp == "" && portValue == "") {
+//        if (serverIp == "") {
 //            Toast.makeText(
 //                context,
 //                R.string.join_game_dialogue_no_ip_and_port_toast,
@@ -118,7 +114,7 @@ class JoinGameDialog : DialogFragment() {
                     )
                 ).jsonEncodeToString()
 
-//        socketViewModel.sendUDPData(payload, serverIp, port)
+//        socketViewModel.sendUDPData(payload, serverIp, 8888)
                 socketViewModel.sendUDPData(payload, serverIp, 8888)
 
                 val action = JoinGameDialogDirections

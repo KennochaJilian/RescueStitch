@@ -23,11 +23,6 @@ class UsernameDialogFragment: DialogFragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
 
-
-    companion object {
-        const val TAG = "UsernameDialog"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +52,7 @@ class UsernameDialogFragment: DialogFragment() {
         }
 
         binding.usernameDialogCheckButton.setOnClickListener {
-            val username = binding.usernameInput.text.toString()
+            val username = AppUtils().removeAccent(binding.usernameInput.text.toString())
 
             val prefs = requireActivity().getSharedPreferences(
                 resources.getString(R.string.app_name),

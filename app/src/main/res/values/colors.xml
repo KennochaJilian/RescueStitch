@@ -14,4 +14,5 @@
     <color name="stitch_mid_blue">#002790 </color>
     <color name="stitch_purple">#945cb4</color>
     <color name="stitch_dark_blue">#001d4f</color>
+    <color name="ship_red" > #DC143C</color>
 </resources>

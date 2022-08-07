@@ -1,10 +1,7 @@
 package fr.aranxa.codina.rescuestitch.game
 
 import android.content.Context
-import android.content.Context.VIBRATOR_SERVICE
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.media.MediaActionSound
+import android.graphics.PorterDuff
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
@@ -16,20 +13,21 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.github.nisrulz.sensey.Sensey
 import com.github.nisrulz.sensey.ShakeDetector.ShakeListener
-import com.google.android.flexbox.*
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import fr.aranxa.codina.rescuestitch.R
 import fr.aranxa.codina.rescuestitch.dataClasses.*
 import fr.aranxa.codina.rescuestitch.databinding.FragmentGameBinding
 import fr.aranxa.codina.rescuestitch.network.SocketViewModel
 import fr.aranxa.codina.rescuestitch.network.payloads.*
 import fr.aranxa.codina.rescuestitch.waitingRoom.VideoFragmentOriginType
-import fr.aranxa.codina.rescuestitch.waitingRoom.WaitingRoomFragmentDirections
 import java.util.*
 
 
@@ -38,7 +36,7 @@ class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private lateinit var binding: FragmentGameBinding
 
-    private lateinit var vibrator : Vibrator
+    private lateinit var vibrator: Vibrator
 
     private val socketViewModel: SocketViewModel by activityViewModels()
     private val gameViewModel: GameViewModel by activityViewModels()
@@ -52,6 +50,8 @@ class GameFragment : Fragment() {
     ): View? {
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         binding = _binding!!
+
+        setupBackButton()
 
         Sensey.getInstance().init(context);
 
@@ -139,7 +139,8 @@ class GameFragment : Fragment() {
         gameViewModel.endedGame.observe(viewLifecycleOwner) { isEnded ->
             if (isEnded) {
                 val action = GameFragmentDirections.actionGameFragmentToVideoShipFragment(
-                    VideoFragmentOriginType.game.toString())
+                    VideoFragmentOriginType.game.toString()
+                )
                 findNavController().navigate(action)
             }
         }
@@ -153,6 +154,18 @@ class GameFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Sensey.getInstance().stop()
+    }
+
+    private fun setupBackButton() {
+        binding.back.setOnClickListener {
+            val game = gameViewModel.currentGame.value
+            if(game != null){
+                gameViewModel.endGame(game.game, GameStatusType.unfinished.toString())
+            }
+            gameViewModel.resetLiveData()
+            findNavController().navigate(R.id.action_gameFragment_to_mainMenuFragment)
+
+        }
     }
 
     private fun displayTurn(turn: Int) {
@@ -185,9 +198,13 @@ class GameFragment : Fragment() {
     }
 
     private fun displayShipIntegrity(integrity: Int) {
-        binding.shipIntegrityProgressBar.progress = integrity
-        if(integrity <=30){
-//            binding.shipIntegrityProgressBar.progressDrawable = Drawable(R.drawable.rect_rounded_active_button)
+        val progressbar = binding.shipIntegrityProgressBar
+        progressbar.progress = integrity
+        if (integrity <= 30) {
+            val color = resources.getColor(R.color.ship_red)
+            progressbar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            progressbar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+
         }
     }
 
@@ -349,13 +366,14 @@ class GameFragment : Fragment() {
 
             if (results.size == nbPlayers / 2 || results.size == (nbPlayers - 1) / 2) {
                 val nbFailure = results.count { it == false }
-                currentGame.game.shipIntegrity = currentGame.game.shipIntegrity - (nbFailure * 40)
+                currentGame.game.shipIntegrity = currentGame.game.shipIntegrity - (nbFailure * 50)
                 displayFire(currentGame.game.shipIntegrity)
 
 
                 if (currentGame.game.shipIntegrity <= 0) {
                     val action = GameFragmentDirections.actionGameFragmentToVideoShipFragment(
-                        VideoFragmentOriginType.game.toString())
+                        VideoFragmentOriginType.game.toString()
+                    )
                     findNavController().navigate(action)
                 }
 
@@ -386,8 +404,9 @@ class GameFragment : Fragment() {
 
         }
     }
-    fun displayFire(shipIntegrity: Int){
-        when{
+
+    fun displayFire(shipIntegrity: Int) {
+        when {
             shipIntegrity <= 20 -> binding.damage4.visibility = VISIBLE
             shipIntegrity <= 40 -> binding.damage3.visibility = VISIBLE
             shipIntegrity <= 60 -> binding.damage2.visibility = VISIBLE

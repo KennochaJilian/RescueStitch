@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import fr.aranxa.codina.rescuestitch.R
+import fr.aranxa.codina.rescuestitch.dataClasses.GameStatusType
 import fr.aranxa.codina.rescuestitch.dataClasses.RoleType
 import fr.aranxa.codina.rescuestitch.databinding.FragmentEndGameBinding
 import fr.aranxa.codina.rescuestitch.game.GameViewModel
@@ -38,7 +39,7 @@ class EndGameFragment() : Fragment() {
                 getString(R.string.end_game_nb_turn_realised, game.game.turn.toString())
 
             if (game.game.role == RoleType.server.toString()) {
-                gameViewModel.endGame(game.game)
+                gameViewModel.endGame(game.game, GameStatusType.finished.toString())
                 for (player in game.players) {
                     if (player.ipAddress != socketViewModel.ipAddress.value) {
                         socketViewModel.sendUDPData(
