@@ -16,7 +16,6 @@ class SocketViewModel(application: Application) : AndroidViewModel(application) 
 
 
     init {
-        serverSocket.reuseAddress = true
         listenSocket()
         getCurrentIP()
     }

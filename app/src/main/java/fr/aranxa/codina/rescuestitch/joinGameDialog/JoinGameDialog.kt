@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -81,20 +82,16 @@ class JoinGameDialog : DialogFragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun goToWaitingRoom() {
-//        val serverIp: String = binding.adressIpInput.text.toString()
-        val serverIp = "192.168.1.36"
+        val serverIp: String = binding.adressIpInput.text.toString()
 
-//
-//        if (serverIp == "") {
-//            Toast.makeText(
-//                context,
-//                R.string.join_game_dialogue_no_ip_and_port_toast,
-//                Toast.LENGTH_LONG
-//            ).show()
-//            return
-//        }
-//
-//        val port: Int = Integer.parseInt(portValue)
+        if (serverIp == "") {
+            Toast.makeText(
+                context,
+                R.string.join_game_dialogue_no_ip_and_port_toast,
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
 
         gameViewModel.initGame(
             RoleType.client.toString(),

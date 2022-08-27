@@ -104,13 +104,17 @@ class SwitchesOperationAdapter(
             )
             ElementValueType.string.toString() -> {
                 holder.textValue.text = switch.value
+                holder.textValue.visibility = VISIBLE
 
             }
             ElementValueType.int.toString() -> {
                 holder.textValue.text = switch.value
                 holder.textValue.visibility = VISIBLE
             }
-            ElementValueType.float.toString() -> holder.textValue.text = switch.value
+            ElementValueType.float.toString() -> {
+                holder.textValue.text = switch.value
+                holder.textValue.visibility = VISIBLE
+            }
         }
         holder.switch.id = switch.id
         holder.switch.setOnCheckedChangeListener { buttonView, isChecked ->

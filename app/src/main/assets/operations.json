@@ -7,8 +7,8 @@
                 {
                     "type": "switch",
                     "id": 0,
-                    "valueType": "color",
-                    "value": "#FF0000"
+                    "valueType": "int",
+                    "value": "1"
                 },
                 {
                     "type": "switch",
@@ -31,8 +31,8 @@
                 {
                     "type": "button",
                     "id": 4,
-                    "valueType": "string",
-                    "value": "Propulseurs"
+                    "valueType": "color",
+                    "value": "#00FF00"
                 },
                 {
                     "type": "button",
@@ -51,12 +51,6 @@
                     "id": 7,
                     "valueType": "color",
                     "value": "#FF0000"
-                },
-                {
-                    "type": "shake",
-                    "id": 8,
-                    "valueType": "N/A",
-                    "value": "N/A"
                 }
             ],
             "result": {
@@ -72,6 +66,504 @@
                 "switch": [
                     1,
                     3
+                ]
+            }
+        },
+        {
+            "duration" : 10,
+            "description": "Activer les propulseurs et appuyer dans l'ordre sur les boutons rouge puis vert puis bleu",
+            "elements": [
+                {
+                    "type": "switch",
+                    "id": 0,
+                    "valueType": "string",
+                    "value": "Pas touch'"
+                },
+                {
+                    "type": "switch",
+                    "id": 1,
+                    "valueType": "string",
+                    "value": "Propulseur 1"
+                },
+                {
+                    "type": "switch",
+                    "id": 2,
+                    "valueType": "string",
+                    "value": "Reacteur"
+                },
+                {
+                    "type": "switch",
+                    "id": 3,
+                    "valueType": "string",
+                    "value": "Propulseur 2"
+                },
+                {
+                    "type": "button",
+                    "id": 4,
+                    "valueType": "color",
+                    "value": "#00FF00"
+                },
+                {
+                    "type": "button",
+                    "id": 5,
+                    "valueType": "color",
+                    "value": "#FF0000"
+                },
+                {
+                    "type": "button",
+                    "id": 6,
+                    "valueType": "color",
+                    "value": "#0000FF"
+                },
+                {
+                    "type": "button",
+                    "id": 7,
+                    "valueType": "color",
+                    "value": "#000000"
+                }
+            ],
+            "result": {
+                "buttons": {
+                    "order": "ordered",
+                    "ids": [
+                        5,
+                        4,
+                        6
+                    ]
+                },
+                "switch": [
+                    1,
+                    3
+                ]
+            }
+        },
+        {
+            "duration" : 10,
+            "description": "Secouer l'appareil, et appuyer trois fois sur le bouton bleu, et activer le stabilisateur",
+            "elements": [
+                {
+                    "type": "switch",
+                    "id": 0,
+                    "valueType": "string",
+                    "value": "Stabilisateur"
+                },
+                {
+                    "type": "switch",
+                    "id": 1,
+                    "valueType": "string",
+                    "value": "Propulseur"
+                },
+                {
+                    "type": "switch",
+                    "id": 2,
+                    "valueType": "string",
+                    "value": "Reacteur"
+                },
+                {
+                    "type": "switch",
+                    "id": 3,
+                    "valueType": "string",
+                    "value": "Propulseur 2"
+                },
+                {
+                    "type": "button",
+                    "id": 4,
+                    "valueType": "color",
+                    "value": "#FF0000"
+                },
+                {
+                    "type": "button",
+                    "id": 5,
+                    "valueType": "color",
+                    "value": "#FF0000"
+                },
+                {
+                    "type": "button",
+                    "id": 6,
+                    "valueType": "color",
+                    "value": "#0000FF"
+                },
+                {
+                    "type": "button",
+                    "id": 7,
+                    "valueType": "color",
+                    "value": "#FF0000"
+                },
+                {
+                    "type": "shake",
+                    "id": 8,
+                    "valueType": "N/A",
+                    "value": "N/A"
+                }
+            ],
+            "result": {
+                "buttons": {
+                    "order": "random",
+                    "ids": [
+                        6,
+                        6,
+                        6
+                    ]
+                },
+                "switch": [
+                    0
+                ]
+            }
+        },
+        {
+            "duration" : 10,
+            "description": "Secouer l'appareil, appuyer dans l'ordre sur les boutons : Hyper-espace, Anti-Ice ",
+            "elements": [
+                {
+                    "type": "switch",
+                    "id": 0,
+                    "valueType": "string",
+                    "value": "Stabilisateur"
+                },
+                {
+                    "type": "switch",
+                    "id": 1,
+                    "valueType": "string",
+                    "value": "Propulseur"
+                },
+                {
+                    "type": "switch",
+                    "id": 2,
+                    "valueType": "string",
+                    "value": "Reacteur"
+                },
+                {
+                    "type": "switch",
+                    "id": 3,
+                    "valueType": "string",
+                    "value": "Propulseur 2"
+                },
+                {
+                    "type": "button",
+                    "id": 4,
+                    "valueType": "string",
+                    "value": "Hyper-espace"
+                },
+                {
+                    "type": "button",
+                    "id": 5,
+                    "valueType": "string",
+                    "value": "Anti-ICE"
+                },
+                {
+                    "type": "button",
+                    "id": 6,
+                    "valueType": "string",
+                    "value": "Essuie-glace"
+                },
+                {
+                    "type": "button",
+                    "id": 7,
+                    "valueType": "string",
+                    "value": "Clignotant"
+                },
+                {
+                    "type": "shake",
+                    "id": 8,
+                    "valueType": "N/A",
+                    "value": "N/A"
+                }
+            ],
+            "result": {
+                "buttons": {
+                    "order": "ordered",
+                    "ids": [
+                        4,
+                        5
+                    ]
+                },
+                "switch": []
+            }
+        },
+        {
+            "duration" : 10,
+            "description": "Activer le pilote automatique, allumer les phares et appuyer deux fois sur les boutons impaires ",
+            "elements": [
+                {
+                    "type": "switch",
+                    "id": 0,
+                    "valueType": "string",
+                    "value": "Stabilisateur"
+                },
+                {
+                    "type": "switch",
+                    "id": 1,
+                    "valueType": "string",
+                    "value": "Pilote automatique"
+                },
+                {
+                    "type": "switch",
+                    "id": 2,
+                    "valueType": "string",
+                    "value": "Phares"
+                },
+                {
+                    "type": "switch",
+                    "id": 3,
+                    "valueType": "string",
+                    "value": "Degivrage"
+                },
+                {
+                    "type": "button",
+                    "id": 4,
+                    "valueType": "int",
+                    "value": 1
+                },
+                {
+                    "type": "button",
+                    "id": 5,
+                    "valueType": "int",
+                    "value": 2
+                },
+                {
+                    "type": "button",
+                    "id": 6,
+                    "valueType": "int",
+                    "value": 3
+                },
+                {
+                    "type": "button",
+                    "id": 7,
+                    "valueType": "int",
+                    "value": 4
+                }
+            ],
+            "result": {
+                "buttons": {
+                    "order": "random",
+                    "ids": [
+                        4,
+                        4,
+                        6,
+                        6
+                    ]
+                },
+                "switch": [
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "duration" : 10,
+            "description": "Activer les propulseurs, et appuyer 4 fois sur le bouton vert ",
+            "elements": [
+                {
+                    "type": "switch",
+                    "id": 0,
+                    "valueType": "string",
+                    "value": "Propulseur 1"
+                },
+                {
+                    "type": "switch",
+                    "id": 1,
+                    "valueType": "string",
+                    "value": "Degivrage"
+                },
+                {
+                    "type": "switch",
+                    "id": 2,
+                    "valueType": "string",
+                    "value": "Propulseur 2"
+                },
+                {
+                    "type": "switch",
+                    "id": 3,
+                    "valueType": "string",
+                    "value": "Propulseur 3"
+                },
+                {
+                    "type": "button",
+                    "id": 4,
+                    "valueType": "color",
+                    "value": "#00FF00"
+                },
+                {
+                    "type": "button",
+                    "id": 5,
+                    "valueType": "color",
+                    "value": "#000000"
+                },
+                {
+                    "type": "button",
+                    "id": 6,
+                    "valueType": "color",
+                    "value": "#0000FF"
+                },
+                {
+                    "type": "button",
+                    "id": 7,
+                    "valueType": "color",
+                    "value": "#0000FF"
+                }
+            ],
+            "result": {
+                "buttons": {
+                    "order": "random",
+                    "ids": [
+                        4,
+                        4,
+                        4,
+                        4
+                    ]
+                },
+                "switch": [
+                    0,
+                    2,
+                    3
+                ]
+            }
+        },
+        {
+            "duration" : 10,
+            "description": "Activer le Degivrage, et secouer le telephone puis appuyer dans l'ordre decroissant sur les boutons",
+            "elements": [
+                {
+                    "type": "switch",
+                    "id": 0,
+                    "valueType": "string",
+                    "value": "Hyper-espace"
+                },
+                {
+                    "type": "switch",
+                    "id": 1,
+                    "valueType": "string",
+                    "value": "Clignotant droit"
+                },
+                {
+                    "type": "switch",
+                    "id": 2,
+                    "valueType": "string",
+                    "value": "Degivrage"
+                },
+                {
+                    "type": "switch",
+                    "id": 3,
+                    "valueType": "string",
+                    "value": "Clignotant gauche"
+                },
+                {
+                    "type": "button",
+                    "id": 4,
+                    "valueType": "int",
+                    "value": 5
+                },
+                {
+                    "type": "button",
+                    "id": 5,
+                    "valueType": "int",
+                    "value": 1
+                },
+                {
+                    "type": "button",
+                    "id": 6,
+                    "valueType": "int",
+                    "value": 10
+                },
+                {
+                    "type": "button",
+                    "id": 7,
+                    "valueType": "int",
+                    "value": 3
+                },
+                {
+                    "type": "shake",
+                    "id": 8,
+                    "valueType": "N/A",
+                    "value": "N/A"
+                }
+            ],
+            "result": {
+                "buttons": {
+                    "order": "ordered",
+                    "ids": [
+                        5,
+                        7,
+                        4,
+                        6
+                    ]
+                },
+                "switch": [
+                    2
+                ]
+            }
+        },
+        {
+            "duration" : 10,
+            "description": "Mettre les clignotants, et secouer le telephone puis appuyer dans l'ordre croissant sur les boutons",
+            "elements": [
+                {
+                    "type": "switch",
+                    "id": 0,
+                    "valueType": "string",
+                    "value": "Hyper-espace"
+                },
+                {
+                    "type": "switch",
+                    "id": 1,
+                    "valueType": "string",
+                    "value": "Clignotant droit"
+                },
+                {
+                    "type": "switch",
+                    "id": 2,
+                    "valueType": "string",
+                    "value": "Degivrage"
+                },
+                {
+                    "type": "switch",
+                    "id": 3,
+                    "valueType": "string",
+                    "value": "Clignotant gauche"
+                },
+                {
+                    "type": "button",
+                    "id": 4,
+                    "valueType": "int",
+                    "value": 5
+                },
+                {
+                    "type": "button",
+                    "id": 5,
+                    "valueType": "int",
+                    "value": 1
+                },
+                {
+                    "type": "button",
+                    "id": 6,
+                    "valueType": "int",
+                    "value": 10
+                },
+                {
+                    "type": "button",
+                    "id": 7,
+                    "valueType": "int",
+                    "value": 3
+                },
+                {
+                    "type": "shake",
+                    "id": 8,
+                    "valueType": "N/A",
+                    "value": "N/A"
+                }
+            ],
+            "result": {
+                "buttons": {
+                    "order": "ordered",
+                    "ids": [
+                        6,
+                        4,
+                        7,
+                        5
+                    ]
+                },
+                "switch": [
+                    1,3
                 ]
             }
         }

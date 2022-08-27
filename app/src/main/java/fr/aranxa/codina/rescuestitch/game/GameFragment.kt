@@ -366,7 +366,7 @@ class GameFragment : Fragment() {
 
             if (results.size == nbPlayers / 2 || results.size == (nbPlayers - 1) / 2) {
                 val nbFailure = results.count { it == false }
-                currentGame.game.shipIntegrity = currentGame.game.shipIntegrity - (nbFailure * 50)
+                currentGame.game.shipIntegrity = currentGame.game.shipIntegrity - (nbFailure * 10)
                 displayFire(currentGame.game.shipIntegrity)
 
 

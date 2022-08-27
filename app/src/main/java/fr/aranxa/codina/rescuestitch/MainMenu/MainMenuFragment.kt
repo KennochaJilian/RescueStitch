@@ -25,11 +25,6 @@ class MainMenuFragment : Fragment() {
     private var _binding: FragmentMainMenuBinding? = null
     private lateinit var binding: FragmentMainMenuBinding
 
-
-    companion object {
-        val TAG = "MainMenu"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
